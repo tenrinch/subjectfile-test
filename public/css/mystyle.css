@@ -1,0 +1,17 @@
+@font-face{
+	font-family: Dutsa;
+	src:url("../fonts/Monlam_Uni_Dutsa2.ttf");
+}
+
+@font-face{
+	font-family: Ouchan3;
+	src:url("../fonts/Monlam_Uni_OuChan3.ttf");
+}
+@font-face{
+	font-family: Ouchan2;
+	src:url("../fonts/Monlam_Uni_OuChan2.ttf");
+}
+
+.bodyig{
+	font-family: Ouchan2;
+}
