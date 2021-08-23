@@ -21,7 +21,7 @@ class SenderDestinationController extends Controller
 
     public function edit(SenderDestination $sender_destination)
     {   
-        abort_if($sender_destination->department_id != Auth::id(), 403);
+        abort_if($sender_destination->department_id != Auth::user()->department_id, 403);
         return view('admin.dashboard.sender-destination.edit',compact('sender_destination'));
     }
 }

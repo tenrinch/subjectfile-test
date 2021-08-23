@@ -25,14 +25,14 @@ class OutgoingController extends Controller
     public function show(Outgoing $outgoing)
     {   
         abort_if(Gate::denies('outgoing_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($outgoing->department_id != Auth::id(), 403);
+        abort_if($outgoing->department_id != Auth::user()->department_id, 403);
         return view('admin.dashboard.outgoing.show',compact('outgoing'));
     }
     
     public function edit(Outgoing $outgoing)
     {   
         abort_if(Gate::denies('outgoing_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($outgoing->department_id != Auth::id(), 403);
+        abort_if($outgoing->department_id != Auth::user()->department_id, 403);
         return view('admin.dashboard.outgoing.edit',compact('outgoing'));
     }
 }
