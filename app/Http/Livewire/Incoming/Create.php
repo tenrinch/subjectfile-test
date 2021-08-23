@@ -65,7 +65,7 @@ class Create extends Component
             {
                 $media = [];
                 $media['file_id']   = $this->incoming->id;
-                $media['path']      = $file->store(Auth::user()->department->title);
+                $media['path']      = $file->store(Auth::user()->department->title.'/incomings');
 
                 Media::create($media);
             }

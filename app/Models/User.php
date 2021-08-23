@@ -80,6 +80,14 @@ class User extends Authenticatable
         }
     }
 
+    static function listStaff()
+    {
+        return User::whereHas('roles', fn($q) => $q->where('title','Staff'))
+        ->where('department_id',Auth::user()->department_id)
+        ->where('id','<>',Auth::id())
+        ->get();
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);

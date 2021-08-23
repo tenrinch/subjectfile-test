@@ -8,6 +8,7 @@ use App\Models\Category;
 class Index extends Component
 {   
     public $categories;
+    
     public function mount($categories)
     {
         $this->categories = $categories;

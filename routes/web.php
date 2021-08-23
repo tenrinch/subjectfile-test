@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\IncomingController;
 use App\Http\Controllers\Admin\OutgoingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\SenderDestinationController;
 use App\Http\Controllers\Auth\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     //Departments
     Route::resource('departments', DepartmentController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
+
+    //Staff
+    Route::resource('staff', StaffController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
+
+    //SenderDestination
+    Route::resource('sender-destinations', SenderDestinationController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
 });
 
 

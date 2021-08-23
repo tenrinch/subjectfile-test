@@ -13,8 +13,9 @@
                     </div>
                 </div>
 
+                <div class="w-full px-6 mb-2">
                 @livewire('category.index',['categories'=>$categories])
-               
+                </div>
             </div>
         </div>
     </div>

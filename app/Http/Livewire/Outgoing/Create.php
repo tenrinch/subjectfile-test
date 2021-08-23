@@ -50,7 +50,6 @@ class Create extends Component
 
     public function submit()
     {   
-
         $this->validate();
         $this->outgoing->entered_by     = Auth::id();
         $this->outgoing->department_id  = Auth::user()->department_id; 
@@ -63,7 +62,7 @@ class Create extends Component
             {
                 $media = [];
                 $media['file_id']   = $this->outgoing->id;
-                $media['path']      = $file->store(Auth::user()->department->title);
+                $media['path']      = $file->store(Auth::user()->department->title.'/outgoings');
 
                 Media::create($media);
             }

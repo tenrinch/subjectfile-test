@@ -11,21 +11,24 @@
     </li>
 
     <li class="c-sidebar-nav-title">Subject Files</li>
-       
+    @can('incoming_access')  
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{ url('admin/incomings') }}">
             <i class="fas fa-file-import c-sidebar-nav-icon"></i>
             Incoming Files
         </a>
     </li>
+    @endcan
 
+    @can('outgoing_access')
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{ url('admin/outgoings') }}">
             <i class="fas fa-file-export c-sidebar-nav-icon"></i>
             Outgoing Files
         </a>
     </li>
-
+    @endcan
+    
     <li class="c-sidebar-nav-title">Settings</li>  
 
     <li class="">
@@ -36,25 +39,29 @@
     </li>
 
     <li class="">
-        <a class="c-sidebar-nav-link" href="">
+        <a class="c-sidebar-nav-link" href="{{ url('admin/sender-destinations')}}">
             <i class="fas fa-shipping-fast c-sidebar-nav-icon"></i>
             Sender/Destination
         </a>
     </li>
 
+    @can('department_access')
     <li class="">
-        <a class="c-sidebar-nav-link" href="">
+        <a class="c-sidebar-nav-link" href="{{ url('admin/departments')}}">
             <i class="far fa-building c-sidebar-nav-icon"></i>
             Departments
         </a>
     </li>
-
+    @endcan
+    
+    @can('staff_manage')
     <li class="">
-        <a class="c-sidebar-nav-link" href="#">
+        <a class="c-sidebar-nav-link" href="{{url('admin/staff')}}">
             <i class="fas fa-user-tie c-sidebar-nav-icon"></i>
             Staff
         </a>
     </li>
+    @endcan
 
     @can('auth_profile_edit')
     <li class="">

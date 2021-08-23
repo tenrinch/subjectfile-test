@@ -21,6 +21,7 @@ class Create extends Component
 
     public function mount(Category $category)
     {
+        
         $this->category = $category;
         $this->listCategories = Category::list()->whereNull('subcategory_of');
     }

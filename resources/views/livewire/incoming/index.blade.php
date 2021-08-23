@@ -56,9 +56,13 @@
                         </div>
                     </td>
                     <td class="px-2 py-1 text-xs border text-center">
-                        <button type="button" wire:click="$set('delete_id', {{ $incoming->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
+                     
+                        @can('incoming_delete')
+                        <button type="button" wire:click="$set('delete_id', {{ $incoming->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal" class="ml-auto">
                             <i class="far fa-trash-alt"></i>
                         </button>
+                        @endcan
+                      
                     </td>
                 </tr>
                 @endforeach 
