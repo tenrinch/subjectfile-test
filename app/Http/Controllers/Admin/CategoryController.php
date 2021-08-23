@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {   
-        abort_if($category->department_id != Auth::id(), 403);
+        abort_if($category->department_id != Auth::user()->department_id, 403);
         return view('admin.dashboard.category.create',compact('category'));
     }
     
