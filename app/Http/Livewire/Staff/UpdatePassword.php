@@ -1,53 +1,55 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Staff;
 
-use Hash;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\User;
+use Hash;
 
-class UpdatePasswordForm extends Component
+class UpdatePassword extends Component
 {
     use AuthorizesRequests;
 
     public $state = [];
 
+    public $staff_id;
+
     protected $validationAttributes = [
-        'state.current_password' => 'current password',
         'state.password'         => 'new password',
     ];
 
-    public function mount()
+    public function mount(User $staff)
     {
+        $this->staff_id = $staff->id;
         $this->resetState();
     }
 
     public function updatePassword()
     {
-        $this->authorize('auth_profile_edit');
+        $this->authorize('staff_edit');
 
         $this->resetErrorBag();
 
         $this->validate();
 
-        auth()->user()->update([
+        User::find($this->staff_id)->update([
             'password' => Hash::make($this->state['password']),
         ]);
 
         $this->resetState();
 
-        $this->emit('saved');
+        return redirect()->route('admin.staff.index');
     }
 
     public function render()
     {
-        return view('livewire.update-password-form');
+        return view('livewire.staff.update-password');
     }
 
     protected function rules()
     {
         return [
-            'state.password' => ['required', 'password'],
             'state.password'         => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
@@ -55,7 +57,6 @@ class UpdatePasswordForm extends Component
     protected function resetState()
     {
         $this->state = [
-            'current_password'      => '',
             'password'              => '',
             'password_confirmation' => '',
         ];
