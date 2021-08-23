@@ -20,8 +20,9 @@ class CategoryController extends Controller
         return view('admin.dashboard.category.create');
     }
 
-    public function edit()
-    {
+    public function edit(Category $category)
+    {   
+        abort_if($category->department_id != Auth::id(), 403);
         return view('admin.dashboard.category.create',compact('category'));
     }
     

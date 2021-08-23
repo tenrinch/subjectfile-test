@@ -24,9 +24,14 @@
                     <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
                     <td class="px-2 py-1 text-xs border">{{$sender_destination->title}}</td>
                     <td class="px-2 py-1 text-xs border text-center">
-                        <button type="button" wire:click="$set('delete_id', {{ $sender_destination->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
+                        <div class="w-full flex flex-row justify-around">
+                            <a href="{{url('admin/sender-destinations')}}/{{$sender_destination->id}}/edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button type="button" wire:click="$set('delete_id', {{ $sender_destination->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach 

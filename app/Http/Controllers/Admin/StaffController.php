@@ -25,6 +25,7 @@ class StaffController extends Controller
     public function edit(User $staff)
     {   
         abort_if(Gate::denies('staff_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if($staff->department_id != Auth::id(), 403);
         return view('admin.dashboard.staff.edit',compact('staff'));
     }
 }
