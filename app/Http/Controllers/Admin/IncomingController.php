@@ -25,12 +25,14 @@ class IncomingController extends Controller
     public function show(Incoming $incoming)
     {   
         abort_if(Gate::denies('incoming_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if($incoming->department_id != Auth::user()->department_id, 403);
         return view('admin.dashboard.incoming.show',compact('incoming'));
     }
 
     public function edit(Incoming $incoming)
     {   
         abort_if(Gate::denies('incoming_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if($incoming->department_id != Auth::user()->department_id, 403);
         return view('admin.dashboard.incoming.edit',compact('incoming'));
     }
 }
