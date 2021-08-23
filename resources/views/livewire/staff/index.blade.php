@@ -17,6 +17,7 @@
                     <td class="px-2 py-3 text-xs border-r">Name</td>
                     <td class="px-2 py-3 text-xs border-r">Email</td>
                     <td class="px-2 py-3 text-xs border-r">Last Login</td>
+                    <td class="px-2 py-3 text-xs border-r"></td>
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +28,14 @@
                     <td class="px-2 py-1 text-xs border">{{$staff->email}}</td>
                     <td class="px-2 py-1 text-xs border"></td>
                     <td class="px-2 py-1 text-xs border text-center">
-                        <button type="button" wire:click="$set('delete_id', {{ $staff->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
+                        <div class="w-full flex flex-row justify-around">
+                            <a href="{{'staff'}}/{{$staff->id}}/edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button type="button" wire:click="$set('delete_id', {{ $staff->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach 
