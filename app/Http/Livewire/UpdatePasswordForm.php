@@ -47,7 +47,7 @@ class UpdatePasswordForm extends Component
     protected function rules()
     {
         return [
-            'state.password' => ['required', 'password'],
+            'state.current_password' => ['required', 'password'],
             'state.password'         => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
