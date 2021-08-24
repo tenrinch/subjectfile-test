@@ -29,9 +29,18 @@ class Category extends Model
         return $this->belongsTo(Category::class,'subcategory_of');
     }
 
-    static function list()
+    public static function list()
     {
         return self::where('department_id',Auth::user()->department_id)->get();
     }
     
+    public static function boot() {
+        parent::boot();
+
+        self::deleting(function($category) 
+        { // before delete() method call this
+            Category::where('subcategory_of',$category->id)
+            ->update(['subcategory_of'=>null]);
+        });
+    }
 }

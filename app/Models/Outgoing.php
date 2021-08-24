@@ -39,7 +39,7 @@ class Outgoing extends Model
     } 
 
     //List out the incomings belonging to the same department
-    static function list()
+    public static function list()
     {      
         return self::where('department_id',Auth::user()->department_id)
             ->orderBy('year')
@@ -48,7 +48,7 @@ class Outgoing extends Model
     }
 
     //List out the incomings belonging to the authenticated user
-    static function staff()
+    public static function staff()
     {     
         return self::where('entered_by',Auth::id()) 
             ->orderBy('year')
