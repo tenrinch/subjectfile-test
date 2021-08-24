@@ -4,8 +4,7 @@ namespace App\Http\Livewire\Department;
 
 use Livewire\Component;
 use App\Models\Department;
-
-class Create extends Component
+class Edit extends Component
 {
     public Department $department;
 
@@ -16,13 +15,13 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.department.create');
+        return view('livewire.department.edit');
     }
 
-    public function submit()
+    public function update()
     {   
         $this->validate();
-        $this->department->save();
+        $this->department->update();
 
         session()->flash('success', 'Department added!');
         return redirect(url('admin/departments'));
