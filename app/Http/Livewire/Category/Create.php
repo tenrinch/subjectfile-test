@@ -54,5 +54,4 @@ class Create extends Component
             ]
         ];
     }
-
 }

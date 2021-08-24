@@ -12,7 +12,7 @@ class SenderDestination extends Model
 
     protected $fillable = ['title','fixed','department_id'];
 
-    static function list()
+    public static function list()
     {
         return SenderDestination::where('fixed',1)
         ->where('department_id',Auth::user()->department_id)
