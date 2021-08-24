@@ -60,13 +60,23 @@
                         </div>
                     </td>
                     <td class="px-2 py-1 text-xs border text-center">
-                     
-                        @can('incoming_delete')
-                        <button type="button" wire:click="$set('delete_id', {{ $incoming->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal" class="ml-auto">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                        @endcan
-                      
+                        <div class="w-full flex flex-row justify-around">
+                            @can('incoming_view')
+                            <a href="{{url('admin/incoming')}}/{{$incoming->id}}/show" class="text-blue-600">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            @endcan
+                            @can('incoming_edit')
+                            <a href="{{url('admin/incomings')}}/{{$incoming->id}}/edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @endcan
+                            @can('incoming_delete')
+                            <button type="button" wire:click="$set('delete_id', {{ $incoming->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal" class="text-red-600">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                            @endcan
+                        </div>
                     </td>
                 </tr>
                 @endforeach 

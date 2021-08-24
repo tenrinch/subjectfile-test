@@ -57,9 +57,23 @@
                         </div>
                     </td>
                     <td class="px-2 py-1 text-xs border text-center">
-                        <button type="button" wire:click="$set('delete_id', {{ $outgoing->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
+                        <div class="w-full flex flex-row justify-around">
+                            @can('outgoing_view')
+                            <a href="{{url('admin/outgoings')}}/{{$outgoing->id}}/show">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            @endcan
+                            @can('outgoing_edit')
+                            <a href="{{url('admin/outgoings')}}/{{$outgoing->id}}/edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @endcan
+                            @can('outgoing_delete')
+                            <button type="button" wire:click="$set('delete_id', {{ $outgoing->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal" class="text-red-600">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                            @endcan
+                        </div>
                     </td>
                 </tr>
                 @endforeach
