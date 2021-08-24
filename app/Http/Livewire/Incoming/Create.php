@@ -8,6 +8,7 @@ use App\Models\Media;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Department;
+use App\Models\SenderDestination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 
@@ -20,6 +21,7 @@ class Create extends Component
     public $files;
 
     public $listCategories = [];
+    public $listSenders = [];
 
     protected $listeners = ['parent_selected' => 'setCategory'];
 
@@ -27,6 +29,10 @@ class Create extends Component
     {   
         $this->incoming = $incoming;
         $this->listCategories = Category::list()->whereNull('subcategory_of');
+        $this->listSenders = SenderDestination::list()
+        ->where('fixed',1)
+        ->pluck('title','id')
+        ->toArray();
     }
 
     public function render()

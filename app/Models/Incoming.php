@@ -40,6 +40,11 @@ class Incoming extends Model
         return $this->belongsTo(Department::class);
     } 
 
+    public function senders()
+    {
+        return $this->belongsTo(SenderDestination::class,'sender');
+    } 
+
     //List out the incomings belonging to the same department
     public static function list()
     {      

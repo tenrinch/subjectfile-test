@@ -38,7 +38,7 @@
                         </a>
                     </td>
                     <td class="px-2 py-1 text-xs border">{{$outgoing->dispatched_date}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$outgoing->destination}}</td>
+                    <td class="px-2 py-1 text-xs border">{{$outgoing->destinations->title}}</td>
                     <td class="px-2 py-1 text-xs border">{{$outgoing->subject}}</td>
                     <td class="px-2 py-1 text-xs border text-center">
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($outgoing->status == 'pending') bg-red-100 text-red-800 @else bg-green-100 text-green-800 @endif">

@@ -51,9 +51,10 @@
                     <div class="col-span-6">
                         <label class="block text-sm font-medium text-gray-700">Sender</label>
                         <select class="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.sender">
-                            <option>Select</option>
-                            <option value="1">Gaden Phodrang</option>
-                            <option value="2">Something</option>
+                            <option value=''>Select</option>
+                            @foreach($listSenders as $key=>$value)
+                            <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
                         </select>
                         <p class="text-xs text-red-600">{{ $errors->first('incoming.sender') }}</p>
                     </div>

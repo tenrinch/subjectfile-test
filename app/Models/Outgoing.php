@@ -38,6 +38,11 @@ class Outgoing extends Model
         return $this->belongsTo(Department::class);
     } 
 
+    public function destinations()
+    {
+        return $this->belongsTo(SenderDestination::class,'destination');
+    } 
+
     //List out the incomings belonging to the same department
     public static function list()
     {      
