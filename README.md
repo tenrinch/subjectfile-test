@@ -12,3 +12,11 @@ This database is acting as a centralised database for e-filling storage for the 
 
 And that's it, Go to the domain and login with these credentials: admin@admin.com - password
 
+
+## Work left
+
+- **Show and Edit for incoming & outgoing**
+- **Individual display for incoming & outgoing** 
+- **File category display** 
+- **Edit, Delete for File Category**
+

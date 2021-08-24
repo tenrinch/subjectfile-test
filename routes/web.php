@@ -32,9 +32,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('users', UserController::class, ['except' => ['store', 'update', 'destroy']]);
 
     //Incoming
+    Route::view('incomings/show','admin.dashboard.incoming.show' )->name('show');
     Route::resource('incomings', IncomingController::class, ['except' => ['store', 'update', 'destroy']]);
-
-    //Outgoing
+    
+    //Outgoing 
     Route::resource('outgoings', OutgoingController::class, ['except' => ['store', 'update', 'destroy']]);
 
     //Category
