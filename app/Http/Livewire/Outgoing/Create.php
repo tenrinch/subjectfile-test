@@ -65,10 +65,11 @@ class Create extends Component
         if($this->files)
         {      
             foreach($this->files as $file) 
-            {
+            {   
+                $file_name = $file->getClientOriginalName();
                 $media = [];
                 $media['file_id']   = $this->outgoing->id;
-                $media['path']      = $file->store(Auth::user()->department->title.'/outgoings');
+                $media['path']      = $file->storeAs(Auth::user()->department->title.'/outgoings',$file_name);
 
                 Media::create($media);
             }

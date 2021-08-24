@@ -2,10 +2,6 @@
     <div class="w-full flex flex-row justify-between py-2">
         <div class="text-xl uppercase text-leading font-bold text-gray-700">Incoming file</div>
         <div>
-            <a class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded py-2.5 hover:no-underline mr-3" 
-            href="{{ route('admin.show')}}">
-                Show
-            </a>
             <a class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded py-2.5 hover:no-underline" 
             href="{{ url('admin/incomings/create')}}">
                 Create
@@ -62,7 +58,7 @@
                     <td class="px-2 py-1 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
                             @can('incoming_view')
-                            <a href="{{url('admin/incoming')}}/{{$incoming->id}}/show" class="text-blue-600">
+                            <a href="{{url('admin/incomings')}}/{{$incoming->id}}" class="text-blue-600">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             @endcan
