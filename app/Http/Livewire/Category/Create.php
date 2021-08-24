@@ -14,14 +14,13 @@ class Create extends Component
 
     protected $listeners = ['parent_selected' => 'setParent'];
     
-    public function setParent($parent)
+    public function setParent($id)
     {
-        $this->category->subcategory_of = $parent;
+        $this->category->subcategory_of = $id;
     }
 
     public function mount(Category $category)
     {
-        
         $this->category = $category;
         $this->listCategories = Category::list()->whereNull('subcategory_of');
     }
