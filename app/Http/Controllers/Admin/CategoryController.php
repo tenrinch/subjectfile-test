@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -22,8 +23,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {   
-        abort_if($category->department_id != Auth::user()->department_id, 403);
-        return view('admin.dashboard.category.create',compact('category'));
+        abort_if($category->department_id != Auth::user()->department_id, Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('admin.dashboard.category.edit',compact('category'));
     }
     
 }
