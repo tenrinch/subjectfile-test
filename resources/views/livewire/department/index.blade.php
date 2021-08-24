@@ -1,6 +1,6 @@
 <div>
     <div class="w-full flex flex-row justify-between py-2">
-        <div class="text-xl uppercase text-leading font-bold text-gray-700">department file</div>
+        <div class="text-xl uppercase text-leading font-bold text-gray-700">Departments</div>
         <div>
             <a class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded py-2.5 hover:no-underline" 
             href="{{ url('admin/departments/create')}}">
@@ -24,9 +24,14 @@
                     <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
                     <td class="px-2 py-1 text-xs border">{{$department->title}}</td>
                     <td class="px-2 py-1 text-xs border text-center">
-                        <button type="button" wire:click="$set('delete_id', {{ $department->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
+                        <div class="w-full flex flex-row justify-around">
+                            <a href="{{'departments'}}/{{$department->id}}/edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button type="button" wire:click="$set('delete_id', {{ $department->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach 
