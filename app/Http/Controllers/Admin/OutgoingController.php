@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Outgoing;
 use Gate;
 use Illuminate\Http\Response;
-
+use Auth; 
 class OutgoingController extends Controller
 {
     public function index()

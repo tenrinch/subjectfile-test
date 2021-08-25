@@ -9,13 +9,21 @@ Uploaded Files
                     <div class="w-0 flex-1 flex items-center">
                         <i class="fas fa-paperclip flex-shrink-0 h-5 w-5 text-gray-400"></i>
                         <p class="ml-2 flex-1 w-0 truncate">
-                            {{strrchr($media->path,"/")}}
+                            {{$media->name}}
                         </p>
                     </div>
-                    <div class="ml-auto flex-shrink-0">
-                        <a href="#" class="font-medium text-red-600 hover:text-red-500">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
+                    <div class="ml-auto flex-shrink-0" x-data = "{removeMessage: false}">
+                        <button type="button" x-on:click = "removeMessage = true " x-show="! removeMessage">
+                            <i class="far fa-trash-alt  flex-shrink-0 h-5 w-5 text-red-400 hover:text-red-600"></i>
+                        </button>
+                        <div class="flex flex-row slide-right" x-show ="removeMessage">
+                            <p class="text-red-600">Remove File?</p>
+                            <div class="ml-4">
+                                <button type="button" class="text-lead text-blue-400 mx-2 hover:text-blue-600" 
+                                wire:click="removeFile({{$media->id}})">Yes</button>
+                                <button type="button" class="text-lead text-gray-400 mx-2 hover:text-gray-600" x-on:click="removeMessage = false">No</button>  
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

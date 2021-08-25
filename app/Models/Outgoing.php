@@ -28,9 +28,13 @@ class Outgoing extends Model
         'urgency'
     ];
 
-    public function files()
+    public function medias()
     {
         return $this->hasMany(Media::class,'file_id');
+    }
+    public function files()
+    {
+        return $this->medias()->where('type','outgoing');
     }
 
     public function department()
@@ -41,6 +45,11 @@ class Outgoing extends Model
     public function destinations()
     {
         return $this->belongsTo(SenderDestination::class,'destination');
+    } 
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     } 
 
     //List out the incomings belonging to the same department
@@ -59,6 +68,23 @@ class Outgoing extends Model
             ->orderBy('year')
             ->orderBy('dispatched_no')
             ->get();
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        self::deleting(function($doc) 
+        { // before delete() method call this
+
+            if($doc->files){
+                foreach($doc->files as $file)
+                {
+                    $file->delete();
+                }
+                    
+            }
+
+        });
     }
 
 }

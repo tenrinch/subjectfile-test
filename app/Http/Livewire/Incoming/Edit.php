@@ -65,12 +65,14 @@ class Edit extends Component
         if($this->files)
         {      
             foreach($this->files as $file) 
-            {
+            {   
+                $file_name = $file->getClientOriginalName();
                 $media = [];
-                $media['file_id']   = $this->incoming->id;
-                $media['path']      = $file->store(Auth::user()->department->title.'/incomings');
+                $media['type']      = 'incoming';
+                $media['name']      = $file_name;
+                $media['path']      = $file->storeAs(Auth::user()->department->title.'/incomings',$file_name);
 
-                Media::create($media);
+                $this->incoming->medias()->create($media);
             }
         }
 
@@ -78,11 +80,17 @@ class Edit extends Component
         return redirect(url('admin/incomings'));
     }
 
+    public function removeFile($media_id)
+    {
+        Media::find($media_id)->delete();  
+        return redirect(url('admin/incomings/'.$this->incoming->id.'/edit'));
+    }
+
     protected function rules(): array
     {
         return [
             'incoming.dispatched_no' => [
-                'string',
+                'integer',
             ],
             'incoming.category_id' => [
                 'integer',
@@ -91,7 +99,7 @@ class Edit extends Component
                 'string',
             ],
             'incoming.file_no' => [
-                'string',
+                'integer',
                 'required',
             ],
             'incoming.year' => [

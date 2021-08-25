@@ -7,15 +7,16 @@
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="md:col-span-1">
                         <div class="px-4 sm:px-0">
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Edit Incoming File</h3>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Edit Outgoing File</h3>
                             <p class="mt-1 text-sm text-gray-600">
-                            Edit the information for the incoming letter
+                            Edit the information for the outgoing letter
                             </p>
                         </div>
                     </div>
                     
-                    @livewire('incoming.edit',compact('incoming'))
-                    
+                    <div class="col-span-2">
+                    @livewire('outgoing.edit',compact('outgoing'))
+                    </div>
                 </div>
 
             </div>

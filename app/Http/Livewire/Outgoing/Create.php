@@ -68,10 +68,11 @@ class Create extends Component
             {   
                 $file_name = $file->getClientOriginalName();
                 $media = [];
-                $media['file_id']   = $this->outgoing->id;
+                $media['type']      = 'outgoing';
+                $media['name']      = $file_name;
                 $media['path']      = $file->storeAs(Auth::user()->department->title.'/outgoings',$file_name);
 
-                Media::create($media);
+                $this->outgoing->medias()->create($media);
             }
         }
 
@@ -83,6 +84,9 @@ class Create extends Component
     {
         return [
             'outgoing.dispatched_no' => [
+                'integer',
+            ],
+            'outgoing.category_id' => [
                 'integer',
             ],
             'outgoing.mode' => [

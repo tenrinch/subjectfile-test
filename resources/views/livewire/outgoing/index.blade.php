@@ -59,7 +59,7 @@
                     <td class="px-2 py-1 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
                             @can('outgoing_view')
-                            <a href="{{url('admin/outgoings')}}/{{$outgoing->id}}/show">
+                            <a href="{{url('admin/outgoings')}}/{{$outgoing->id}}">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             @endcan

@@ -5,15 +5,15 @@
         <div class="sm:grid grid-cols-3 gap-20 w-full mx-auto py-15 border-b border-gray-200">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Incoming no
+                Outgoing no
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                {{$incoming->incoming_no}}
+                {{$outgoing->dispatched_no}}
                 </p>
             </div>
             <div class=" px-4 py-5 sm:px-6">
                 <p class=" text-center w-1/2 text-lg leading-6 font-medium text-gray-100 bg-red-600 rounded-2xl m-auto py-2 px-2">
-                {{$incoming->urgency}}        
+                {{$outgoing->urgency}}        
                 </p>
             </div>
             <div class="px-4 py-5 sm:px-6">
@@ -21,7 +21,7 @@
                 Status
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                {{ucfirst($incoming->status)}}
+                {{ucfirst($outgoing->status)}}
                 </p>
             </div>
         </div>
@@ -33,7 +33,7 @@
                     Category
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->category->title}}
+                    {{$outgoing->category->title}}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -41,23 +41,15 @@
                     File Number
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->file_no}}
+                    {{$outgoing->file_no}}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                    Sender
+                    Destination
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->senders->title}}
-                    </dd>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                    Dispatch Number
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->dispatched_no}}
+                    {{$outgoing->destinations->title}}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -65,23 +57,15 @@
                     Year
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->year}}
-                    </dd>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                    Incoming number
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->incoming_no}}
+                    {{$outgoing->year}}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                    Received Date
+                    Send Date
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->received_date}}
+                    {{$outgoing->dispatched_date}}
                     </dd>
                 </div>
                 
@@ -90,7 +74,7 @@
                     Mode
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->mode}}
+                    {{$outgoing->mode}}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -99,7 +83,7 @@
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
-                            @forelse($incoming->files as $file)
+                            @forelse($outgoing->files as $file)
                             <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                                 <div class="w-0 flex-1 flex items-center">
                                     <i class="fas fa-paperclip flex-shrink-0 h-5 w-5 text-gray-400"></i>
@@ -130,7 +114,7 @@
             </div>
         </div>
         <div class="text-xs px-2 py-1 text-gray-500 text-right mb-2">
-            Entered on {{$incoming->created_at}}
+            Entered on {{$outgoing->created_at}}
         </div>
     </div>
 @endsection
