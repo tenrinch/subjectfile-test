@@ -12,7 +12,7 @@
                 </p>
             </div>
             <div class=" px-4 py-5 sm:px-6">
-                <p class=" text-center w-1/2 text-lg leading-6 font-medium text-gray-100 bg-red-600 rounded-2xl m-auto py-2 px-2">
+                <p class=" text-center w-1/2 text-lg leading-6 font-medium text-gray-100 @if($outgoing->urgency == 'Urgent') bg-red-600 @elseif($outgoing->urgency == 'Moderate') bg-orange-600 @else bg-green-600 @endelseif rounded-2xl m-auto py-2 px-2 font-bold">
                 {{$outgoing->urgency}}        
                 </p>
             </div>
@@ -92,8 +92,8 @@
                                     </span>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
-                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                    Download
+                                    <a href="{{ asset('storage')}}/{{$file->path}}" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                    View
                                     </a>
                                 </div>
                             </li>

@@ -80,7 +80,7 @@ class Edit extends Component
 
     public function removeFile($media_id)
     {
-        $this->outgoing->files->where('id',$media_id)->delete();  
+        $this->outgoing->files->where('id',$media_id)->delete(); 
         return redirect(url('admin/outgoings/'.$this->outgoing->id.'/edit'));
     }
 

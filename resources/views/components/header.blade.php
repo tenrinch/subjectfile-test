@@ -8,7 +8,7 @@
                 FreelyPositionedMenus::render( $appMenus['top menu'] , 'c-header-', 'd-md-down-none');
             }
         ?>  
-        <div class="ml-auto h2 my-auto" style="font-family: Dutsa;">ལོ་རྒྱུས་འབྲི་རྩོམ་དང་བར་བརྒལ་ལས་བཀོད་སྡེ་ཚན།</div>
+        <div class="ml-auto h2 my-auto bodyig">{{Auth::user()->department->title}} E-Filling Database</div>
         <ul class="c-header-nav ml-auto mr-4">
           
             <li class="c-header-nav-item dropdown">
