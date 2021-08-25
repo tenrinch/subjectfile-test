@@ -78,6 +78,82 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 17,
                 'title' => 'user_access',
             ],
+            [
+                'id'    => 18,
+                'title' => 'incoming_access',
+            ],
+            [
+                'id'    => 19,
+                'title' => 'incoming_create',
+            ],
+            [
+                'id'    => 20,
+                'title' => 'incoming_edit',
+            ],
+            [
+                'id'    => 21,
+                'title' => 'incoming_view',
+            ],
+            [
+                'id'    => 22,
+                'title' => 'incoming_delete',
+            ],
+            [
+                'id'    => 23,
+                'title' => 'outgoing_access',
+            ],
+            [
+                'id'    => 24,
+                'title' => 'outgoing_create',
+            ],
+            [
+                'id'    => 25,
+                'title' => 'outgoing_edit',
+            ],
+            [
+                'id'    => 26,
+                'title' => 'outgoing_view',
+            ],
+            [
+                'id'    => 27,
+                'title' => 'outgoing_delete',
+            ],
+            [
+                'id'    => 28,
+                'title' => 'staff_manage',
+            ],
+            [
+                'id'    => 29,
+                'title' => 'staff_create',
+            ],
+            [
+                'id'    => 30,
+                'title' => 'staff_edit',
+            ],
+            [
+                'id'    => 31,
+                'title' => 'staff_delete',
+            ],
+            [
+                'id'    => 32,
+                'title' => 'staff_access',
+            ],
+            [
+                'id'    => 33,
+                'title' => 'departement_access',
+            ],
+            [
+                'id'    => 34,
+                'title' => 'department_create',
+            ],
+            [
+                'id'    => 33,
+                'title' => 'departement_edit',
+            ],
+            [
+                'id'    => 34,
+                'title' => 'department_delete',
+            ],
         ];
 
         Permission::insert($permissions);
