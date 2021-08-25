@@ -147,11 +147,11 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'department_create',
             ],
             [
-                'id'    => 33,
+                'id'    => 35,
                 'title' => 'departement_edit',
             ],
             [
-                'id'    => 34,
+                'id'    => 36,
                 'title' => 'department_delete',
             ],
         ];
