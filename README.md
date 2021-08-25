@@ -15,8 +15,8 @@ And that's it, Go to the domain and login with these credentials: admin@admin.co
 
 ## Work left
 
-- **Show and Edit for incoming & outgoing**
-- **Individual display for incoming & outgoing** 
+- ~~Show and Edit for incoming & outgoing~~
+- ~~Individual display for incoming & outgoing~~ 
 - ~~File category display~~ 
 - ~~Edit, Delete for File Category~~
 
