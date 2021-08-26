@@ -24,7 +24,6 @@ class Create extends Component
     {
         $this->validate();
         $this->sender_destination->fixed = 1;
-        $this->sender_destination->department_id = Auth::user()->department_id;
         $this->sender_destination->save();
 
         return redirect()->route('staff.sender-destinations.index');

@@ -22,7 +22,7 @@ class Create extends Component
     public function mount(Category $category)
     {
         $this->category = $category;
-        $this->listCategories = Category::list()->whereNull('subcategory_of');
+        $this->listCategories = Category::get()->whereNull('subcategory_of');
     }
 
     public function render()
@@ -33,8 +33,6 @@ class Create extends Component
     public function submit()
     {   
         $this->validate();
-        $this->category->department_id  = Auth::user()->department_id; 
-        //dd($this->category);
         $this->category->save();
 
         session()->flash('success', 'Category added!');

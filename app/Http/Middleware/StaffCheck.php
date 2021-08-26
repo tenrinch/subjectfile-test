@@ -17,7 +17,8 @@ class StaffCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->roles()->where('title', 'Staff')->exists()) || Auth::user()->roles()->where('title','Coordinator') 
+        if (Auth::user()->roles()->where('title', 'Staff')->exists() OR  
+            Auth::user()->roles()->where('title','Coordinator')->exists())
         {
             return $next($request);
         }

@@ -28,8 +28,8 @@ class Create extends Component
     public function mount(Incoming $incoming)
     {   
         $this->incoming = $incoming;
-        $this->listCategories = Category::list()->whereNull('subcategory_of');
-        $this->listSenders = SenderDestination::list()
+        $this->listCategories = Category::get()->whereNull('subcategory_of');
+        $this->listSenders = SenderDestination::get()
         ->where('fixed',1)
         ->pluck('title','id')
         ->toArray();
@@ -39,7 +39,7 @@ class Create extends Component
     {   
         if(!empty($this->incoming->year))
         {
-            $this->incoming->incoming_no = Incoming::list()
+            $this->incoming->incoming_no = Incoming::get()
                 ->where('year',$this->incoming->year)
                 ->max('incoming_no') + 1;
         }
@@ -60,8 +60,6 @@ class Create extends Component
     {   
 
         $this->validate();
-        $this->incoming->entered_by     = Auth::id();
-        $this->incoming->department_id  = Auth::user()->department_id; 
         $this->incoming->save();
        
         //If file is uploaded

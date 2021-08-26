@@ -13,7 +13,7 @@ class Index extends Component
 
     public function render()
     {   
-        $outgoings = Outgoing::list();
+        $outgoings = Outgoing::get();
         return view('livewire.outgoing.index',compact('outgoings'));
     }
 

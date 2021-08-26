@@ -9,11 +9,12 @@ use Illuminate\Http\Response;
 
 class Index extends Component
 {   
+    
     public $delete_id;
 
     public function render()
     {   
-        $incomings = Incoming::list();
+        $incomings = Incoming::get();
         return view('livewire.incoming.index',compact('incomings'));
     }
 
