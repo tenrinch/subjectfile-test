@@ -17,14 +17,14 @@ And that's it, Go to the domain and login with these credentials: admin@admin.co
 
 - When installed all the required permissions and roles will be created. The default user created will have all the three role i.e "Admin","Coordinator","Staff". 
 - By default, every user can access their own profile and edit it. 
-- The project has incomings, outgoings, sender-destinations, category components which can be accessed by users having the role "Staff"
+- The project has incomings, outgoings, sender-destinations, category components which can be accessed by users having the role "Staff" & "Coordinator"
 - The project has staff component which can be accessed by users having the role "Coordinator"
 - The project has users, roles, permissions and department component which can be accessed by users having the role "Admin"
 
 ## Staff
 
-- Incoming/outgoing can be accessed, viewed, edited, created & deleted by users having the role "Staff" only by default.
-- Every incoming/outgoing record entered has fields to store the author's id and their department id.
+- Incoming/outgoing can be accessed, viewed, edited, created & deleted by users having the role "Staff" & "Coordinator" only by default.
+- Every incoming/outgoing record created has fields to store the author's id and their department id.
 - Incoming/outgoing can have multiple files uploaded.  
 - Every sender-destinations, category has a field to store the author's department id. 
 

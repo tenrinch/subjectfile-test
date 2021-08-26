@@ -17,7 +17,8 @@ class StaffCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->roles()->where('title', 'Staff')->exists()) {
+        if (Auth::user()->roles()->where('title', 'Staff')->exists()) || Auth::user()->roles()->where('title','Coordinator') 
+        {
             return $next($request);
         }
         abort(403, 'Access denied');
