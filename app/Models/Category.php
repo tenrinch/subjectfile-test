@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\WithDepartment;
 
 class Category extends Model
-{
+{   
+    use WithDepartment;
     use HasFactory;
 
     protected $table = 'category';
@@ -27,11 +29,6 @@ class Category extends Model
     public function parent()
     {
         return $this->belongsTo(Category::class,'subcategory_of');
-    }
-
-    public static function list()
-    {
-        return self::where('department_id',Auth::user()->department_id)->get();
     }
     
     public static function boot() {

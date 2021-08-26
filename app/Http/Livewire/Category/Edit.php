@@ -23,11 +23,11 @@ class Edit extends Component
         $this->category = $category;
         if($this->category->parent)
         {
-            $this->listCategories = Category::list()->where('subcategory_of',$this->category->subcategory_of);
+            $this->listCategories = Category::get()->where('subcategory_of',$this->category->subcategory_of);
         }
         else
         {
-            $this->listCategories = Category::list()->whereNull('subcategory_of');
+            $this->listCategories = Category::get()->whereNull('subcategory_of');
         }
         
     }

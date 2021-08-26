@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {   
-        $categories = Category::list()->whereNull('subcategory_of');
+        $categories = Category::get()->whereNull('subcategory_of');
         return view('staff.category.index',compact('categories'));
     }
 

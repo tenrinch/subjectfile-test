@@ -26,8 +26,8 @@ class Edit extends Component
     public function mount(Outgoing $outgoing)
     {   
         $this->outgoing = $outgoing;
-        $this->listCategories = Category::list()->whereNull('subcategory_of');
-        $this->listDestinations = SenderDestination::list()
+        $this->listCategories = Category::get()->whereNull('subcategory_of');
+        $this->listDestinations = SenderDestination::get()
         ->where('fixed',1)
         ->pluck('title','id')
         ->toArray();
@@ -37,7 +37,7 @@ class Edit extends Component
     {   
         if(!empty($this->outgoing->year))
         {
-            $this->outgoing->outgoing_no = outgoing::list()
+            $this->outgoing->outgoing_no = outgoing::get()
                 ->where('year',$this->outgoing->year)
                 ->max('outgoing_no') + 1;
         }

@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\App;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\WithDepartment;
 
 class Outgoing extends Model
 {
+    use WithDepartment;
     use HasFactory;
 
     protected $table = 'outgoings';
@@ -51,24 +53,6 @@ class Outgoing extends Model
     {
         return $this->belongsTo(Category::class);
     } 
-
-    //List out the incomings belonging to the same department
-    public static function list()
-    {      
-        return self::where('department_id',Auth::user()->department_id)
-            ->orderBy('year')
-            ->orderBy('dispatched_no')
-            ->get();
-    }
-
-    //List out the incomings belonging to the authenticated user
-    public static function staff()
-    {     
-        return self::where('entered_by',Auth::id()) 
-            ->orderBy('year')
-            ->orderBy('dispatched_no')
-            ->get();
-    }
 
     public static function boot() {
         parent::boot();
