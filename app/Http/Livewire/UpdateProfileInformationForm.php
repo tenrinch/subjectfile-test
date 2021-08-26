@@ -7,8 +7,6 @@ use Livewire\Component;
 
 class UpdateProfileInformationForm extends Component
 {
-    use AuthorizesRequests;
-
     public $state = [];
 
     protected $validationAttributes = [
@@ -23,7 +21,6 @@ class UpdateProfileInformationForm extends Component
 
     public function updateProfileInformation()
     {
-        $this->authorize('auth_profile_edit');
 
         $this->resetErrorBag();
 

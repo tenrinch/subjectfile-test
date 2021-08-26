@@ -19,11 +19,11 @@ class CreateOutgoingTable extends Migration
             $table->integer('file_no');
             $table->date('dispatched_date');
             $table->integer('year');
-            $table->foreignId('destination')->references('id')->on('sender_destinations');
+            $table->foreignId('sender')->constrained('sender_destinations');
             $table->mediumText('subject');
             $table->enum('status', ['pending', 'closed'])->default('pending');
-            $table->foreignId('entered_by')->references('id')->on('users');
-            $table->foreignId('department_id')->references('id')->on('departments');
+            $table->foreignId('entered_by')->constrained('users');
+            $table->foreignId('department_id')->constrained();
             $table->timestamps();
         });
     }
