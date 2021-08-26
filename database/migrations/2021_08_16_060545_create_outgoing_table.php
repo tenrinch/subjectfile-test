@@ -19,7 +19,7 @@ class CreateOutgoingTable extends Migration
             $table->integer('file_no');
             $table->date('dispatched_date');
             $table->integer('year');
-            $table->foreignId('destination')->references('id')->on('departments');
+            $table->foreignId('destination')->references('id')->on('sender_destinations');
             $table->mediumText('subject');
             $table->enum('status', ['pending', 'closed'])->default('pending');
             $table->foreignId('entered_by')->references('id')->on('users');
