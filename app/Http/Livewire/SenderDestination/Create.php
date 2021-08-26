@@ -27,7 +27,7 @@ class Create extends Component
         $this->sender_destination->department_id = Auth::user()->department_id;
         $this->sender_destination->save();
 
-        return redirect()->route('admin.sender-destinations.index');
+        return redirect()->route('staff.sender-destinations.index');
     }
 
     protected function rules(): array

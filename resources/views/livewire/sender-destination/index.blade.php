@@ -3,7 +3,7 @@
         <div class="text-xl uppercase text-leading font-bold text-gray-700">Sender/Destination</div>
         <div>
             <a class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded py-2.5 hover:no-underline" 
-            href="{{ url('admin/sender-destinations/create')}}">
+            href="{{ url('staff/sender-destinations/create')}}">
                 Create
             </a>
         </div>
@@ -25,7 +25,7 @@
                     <td class="px-2 py-1 text-xs border">{{$sender_destination->title}}</td>
                     <td class="px-2 py-1 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
-                            <a href="{{url('admin/sender-destinations')}}/{{$sender_destination->id}}/edit">
+                            <a href="{{url('staff/sender-destinations')}}/{{$sender_destination->id}}/edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button type="button" wire:click="$set('delete_id', {{ $sender_destination->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">

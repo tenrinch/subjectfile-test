@@ -43,7 +43,7 @@ class Edit extends Component
         $this->category->update();
 
         session()->flash('success', 'Category added!');
-        return redirect(url('admin/categories/'));
+        return redirect(url('staff/categories/'));
     }
 
     protected function rules(): array

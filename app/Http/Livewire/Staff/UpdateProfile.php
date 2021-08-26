@@ -32,7 +32,7 @@ class UpdateProfile extends Component
 
         $this->staff->update();
 
-        return redirect()->route('admin.staff.index');
+        return redirect()->route('coordinator.staff.index');
     }
 
     public function render()

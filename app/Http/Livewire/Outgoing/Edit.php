@@ -75,13 +75,13 @@ class Edit extends Component
         }
 
         session()->flash('success', 'outgoing file added!');
-        return redirect(url('admin/outgoings'));
+        return redirect(url('staff/outgoings'));
     }
 
     public function removeFile($media_id)
     {
         $this->outgoing->files->where('id',$media_id)->delete(); 
-        return redirect(url('admin/outgoings/'.$this->outgoing->id.'/edit'));
+        return redirect(url('staff/outgoings/'.$this->outgoing->id.'/edit'));
     }
 
     protected function rules(): array

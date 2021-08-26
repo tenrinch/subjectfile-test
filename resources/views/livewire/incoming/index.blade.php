@@ -2,10 +2,12 @@
     <div class="w-full flex flex-row justify-between py-2">
         <div class="text-xl uppercase text-leading font-bold text-gray-700">Incoming file</div>
         <div>
+            @can('incoming_create')
             <a class="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded py-2.5 hover:no-underline" 
-            href="{{ url('admin/incomings/create')}}">
+            href="{{ url('staff/incomings/create')}}">
                 Create
             </a>
+            @endcan
         </div>
     </div>
 
@@ -28,7 +30,7 @@
                 <tr>
                     <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
                     <td class="px-2 py-1 text-xs border">
-                        <a href="{{url('admin/incomings/show')}}" class="hover:no-underline ">
+                        <a href="{{url('staff/incomings/show')}}" class="hover:no-underline ">
                             <div class="flex items-center text-sm">
                                 <div class="">
                                     <p class="text-xs text-black hover:text-blue-600">{{$incoming->dispatched_no}}</p>
@@ -48,7 +50,7 @@
                         <div class="flex flex-row justify-around">
                             @if($incoming->files)
                                 @foreach($incoming->files as $file)
-                                <a href="{{ asset('storage')}}/{{$file->path}}" class="hover:no-underline ">
+                                <a href="{{ asset('storage')}}/{{$file->path}}" class="hover:no-underline" target="_blank">
                                     <i class="fas fa-file"></i>
                                 </a>
                                 @endforeach
@@ -58,12 +60,12 @@
                     <td class="px-2 py-1 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
                             @can('incoming_view')
-                            <a href="{{url('admin/incomings')}}/{{$incoming->id}}" class="text-blue-600">
+                            <a href="{{url('staff/incomings')}}/{{$incoming->id}}" class="text-blue-600">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             @endcan
                             @can('incoming_edit')
-                            <a href="{{url('admin/incomings')}}/{{$incoming->id}}/edit">
+                            <a href="{{url('staff/incomings')}}/{{$incoming->id}}/edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             @endcan

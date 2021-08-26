@@ -38,7 +38,7 @@ class Create extends Component
         $this->category->save();
 
         session()->flash('success', 'Category added!');
-        return redirect(url('admin/categories/create'));
+        return redirect(url('staff/categories/create'));
     }
 
     protected function rules(): array

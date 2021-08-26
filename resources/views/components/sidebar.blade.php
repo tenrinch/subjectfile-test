@@ -1,98 +1,87 @@
-<nav class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
-    <div class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
-        <button class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent" type="button" onclick="toggleNavbar('example-collapse-sidebar')">
-            <i class="fas fa-bars"></i>
-        </button>
-        <a class="md:block text-left md:pb-2 text-blueGray-700 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0" href="{{ route('admin.home') }}">
-            {{ trans('panel.site_title') }}
+<div class="c-sidebar-brand">
+    <img src="{{asset('assets/img/logo.png')}}" class="w-25 p-1 m-2">
+</div>
+
+<ul class="c-sidebar-nav ps ps--active-y">
+    <li class="c-sidebar-nav-item ">
+        <a class="c-sidebar-nav-link" href="{{url('/')}}">
+            <i class="cil-home c-sidebar-nav-icon"></i>
+            Home
+         </a>
+    </li>
+
+    <li class="c-sidebar-nav-title">Subject Files</li>
+    @can('incoming_access')  
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url('staff/incomings') }}">
+            <i class="fas fa-file-import c-sidebar-nav-icon"></i>
+            Incoming Files
         </a>
-        <div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden" id="example-collapse-sidebar">
-            <div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-300">
-                <div class="flex flex-wrap">
-                    <div class="w-6/12">
-                        <a class="md:block text-left md:pb-2 text-blueGray-700 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0" href="{{ route('admin.home') }}">
-                            {{ trans('panel.site_title') }}
-                        </a>
-                    </div>
-                    <div class="w-6/12 flex justify-end">
-                        <button type="button" class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent" onclick="toggleNavbar('example-collapse-sidebar')">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    </li>
+    @endcan
+
+    @can('outgoing_access')
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url('staff/outgoings') }}">
+            <i class="fas fa-file-export c-sidebar-nav-icon"></i>
+            Outgoing Files
+        </a>
+    </li>
+    @endcan
+    
+    <li class="c-sidebar-nav-title">Settings</li>  
+
+    <li class="">
+        <a class="c-sidebar-nav-link" href="{{url('staff/categories')}}">
+            <i class="fas fa-list-ul c-sidebar-nav-icon"></i>
+            File Category
+        </a>
+    </li>
+
+    <li class="">
+        <a class="c-sidebar-nav-link" href="{{ url('staff/sender-destinations')}}">
+            <i class="fas fa-shipping-fast c-sidebar-nav-icon"></i>
+            Sender/Destination
+        </a>
+    </li>
+
+    @can('department_access')
+    <li class="">
+        <a class="c-sidebar-nav-link" href="{{ url('admin/departments')}}">
+            <i class="far fa-building c-sidebar-nav-icon"></i>
+            Departments
+        </a>
+    </li>
+    @endcan
+    
+    @can('staff_manage')
+    <li class="">
+        <a class="c-sidebar-nav-link" href="{{url('coordinator/staff')}}">
+            <i class="fas fa-user-tie c-sidebar-nav-icon"></i>
+            Staff
+        </a>
+    </li>
+    @endcan
+
+    <li class="">
+        <a class="c-sidebar-nav-link" href="{{ route('profile.show') }}">
+            <i class="fas fa-user-cog c-sidebar-nav-icon"></i>
+            My Profile
+        </a>
+    </li> 
+
+    <li class="">
+        <a class="c-sidebar-nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+            <i class="cil-account-logout c-sidebar-nav-icon"></i>
+            Logout
+        </a>
+    </li>     
+</ul>
 
 
+<button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized">
+</button>
 
-            <!-- Divider -->
-            <hr class="mb-6 md:min-w-full" />
-            <!-- Heading -->
+</div>
 
-            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                <li class="items-center">
-                    <a href="{{ route("admin.home") }}" class="{{ request()->is("admin") ? "sidebar-nav-active" : "sidebar-nav" }}">
-                        <i class="fas fa-tv"></i>
-                        {{ __('global.dashboard') }}
-                    </a>
-                </li>
-
-                @can('user_management_access')
-                    <li class="items-center">
-                        <a class="has-sub {{ request()->is("admin/permissions*")||request()->is("admin/roles*")||request()->is("admin/users*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="#" onclick="window.openSubNav(this)">
-                            <i class="fa-fw fas c-sidebar-nav-icon fa-users">
-                            </i>
-                            {{ trans('cruds.userManagement.title') }}
-                        </a>
-                        <ul class="ml-4 subnav hidden">
-                            @can('permission_access')
-                                <li class="items-center">
-                                    <a class="{{ request()->is("admin/permissions*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="{{ route("admin.permissions.index") }}">
-                                        <i class="fa-fw c-sidebar-nav-icon fas fa-unlock-alt">
-                                        </i>
-                                        {{ trans('cruds.permission.title') }}
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('role_access')
-                                <li class="items-center">
-                                    <a class="{{ request()->is("admin/roles*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="{{ route("admin.roles.index") }}">
-                                        <i class="fa-fw c-sidebar-nav-icon fas fa-briefcase">
-                                        </i>
-                                        {{ trans('cruds.role.title') }}
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('user_access')
-                                <li class="items-center">
-                                    <a class="{{ request()->is("admin/users*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="{{ route("admin.users.index") }}">
-                                        <i class="fa-fw c-sidebar-nav-icon fas fa-user">
-                                        </i>
-                                        {{ trans('cruds.user.title') }}
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
-
-                @if(file_exists(app_path('Http/Controllers/Auth/UserProfileController.php')))
-                    @can('auth_profile_edit')
-                        <li class="items-center">
-                            <a href="{{ route("profile.show") }}" class="{{ request()->is("profile") ? "sidebar-nav-active" : "sidebar-nav" }}">
-                                <i class="fa-fw c-sidebar-nav-icon fas fa-user-circle"></i>
-                                {{ trans('global.my_profile') }}
-                            </a>
-                        </li>
-                    @endcan
-                @endif
-
-                <li class="items-center">
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();" class="sidebar-nav">
-                        <i class="fa-fw fas fa-sign-out-alt"></i>
-                        {{ trans('global.logout') }}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+                

@@ -39,7 +39,7 @@ class UpdatePassword extends Component
 
         $this->resetState();
 
-        return redirect()->route('admin.staff.index');
+        return redirect()->route('coordinator.staff.index');
     }
 
     public function render()

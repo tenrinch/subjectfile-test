@@ -12,146 +12,142 @@ class PermissionsTableSeeder extends Seeder
         $permissions = [
             [
                 'id'    => 1,
-                'title' => 'auth_profile_edit',
-            ],
-            [
-                'id'    => 2,
                 'title' => 'user_management_access',
             ],
             [
-                'id'    => 3,
+                'id'    => 2,
                 'title' => 'permission_create',
             ],
             [
-                'id'    => 4,
+                'id'    => 3,
                 'title' => 'permission_edit',
             ],
             [
-                'id'    => 5,
+                'id'    => 4,
                 'title' => 'permission_show',
             ],
             [
-                'id'    => 6,
+                'id'    => 5,
                 'title' => 'permission_delete',
             ],
             [
-                'id'    => 7,
+                'id'    => 6,
                 'title' => 'permission_access',
             ],
             [
-                'id'    => 8,
+                'id'    => 7,
                 'title' => 'role_create',
             ],
             [
-                'id'    => 9,
+                'id'    => 8,
                 'title' => 'role_edit',
             ],
             [
-                'id'    => 10,
+                'id'    => 9,
                 'title' => 'role_show',
             ],
             [
-                'id'    => 11,
+                'id'    => 10,
                 'title' => 'role_delete',
             ],
             [
-                'id'    => 12,
+                'id'    => 11,
                 'title' => 'role_access',
             ],
             [
-                'id'    => 13,
+                'id'    => 12,
                 'title' => 'user_create',
             ],
             [
-                'id'    => 14,
+                'id'    => 13,
                 'title' => 'user_edit',
             ],
             [
-                'id'    => 15,
+                'id'    => 14,
                 'title' => 'user_show',
             ],
             [
-                'id'    => 16,
+                'id'    => 15,
                 'title' => 'user_delete',
             ],
             [
-                'id'    => 17,
+                'id'    => 16,
                 'title' => 'user_access',
             ],
             [
-                'id'    => 18,
+                'id'    => 17,
                 'title' => 'incoming_access',
             ],
             [
-                'id'    => 19,
+                'id'    => 18,
                 'title' => 'incoming_create',
             ],
             [
-                'id'    => 20,
+                'id'    => 19,
                 'title' => 'incoming_edit',
             ],
             [
-                'id'    => 21,
+                'id'    => 20,
                 'title' => 'incoming_view',
             ],
             [
-                'id'    => 22,
+                'id'    => 21,
                 'title' => 'incoming_delete',
             ],
             [
-                'id'    => 23,
+                'id'    => 22,
                 'title' => 'outgoing_access',
             ],
             [
-                'id'    => 24,
+                'id'    => 23,
                 'title' => 'outgoing_create',
             ],
             [
-                'id'    => 25,
+                'id'    => 24,
                 'title' => 'outgoing_edit',
             ],
             [
-                'id'    => 26,
+                'id'    => 25,
                 'title' => 'outgoing_view',
             ],
             [
-                'id'    => 27,
+                'id'    => 26,
                 'title' => 'outgoing_delete',
             ],
             [
-                'id'    => 28,
+                'id'    => 27,
                 'title' => 'staff_manage',
             ],
             [
-                'id'    => 29,
+                'id'    => 28,
                 'title' => 'staff_create',
             ],
             [
-                'id'    => 30,
+                'id'    => 29,
                 'title' => 'staff_edit',
             ],
             [
-                'id'    => 31,
+                'id'    => 30,
                 'title' => 'staff_delete',
             ],
             [
-                'id'    => 32,
+                'id'    => 31,
                 'title' => 'staff_access',
             ],
             [
-                'id'    => 33,
-                'title' => 'departement_access',
+                'id'    => 32,
+                'title' => 'department_access',
             ],
             [
-                'id'    => 34,
+                'id'    => 33,
                 'title' => 'department_create',
             ],
             [
-                'id'    => 35,
-                'title' => 'departement_edit',
+                'id'    => 34,
+                'title' => 'department_edit',
             ],
             [
-                'id'    => 36,
+                'id'    => 35,
                 'title' => 'department_delete',
             ],
         ];

@@ -77,13 +77,13 @@ class Edit extends Component
         }
 
         session()->flash('success', 'Incoming file added!');
-        return redirect(url('admin/incomings'));
+        return redirect(url('staff/incomings'));
     }
 
     public function removeFile($media_id)
     {
         Media::find($media_id)->delete();  
-        return redirect(url('admin/incomings/'.$this->incoming->id.'/edit'));
+        return redirect(url('staff/incomings/'.$this->incoming->id.'/edit'));
     }
 
     protected function rules(): array

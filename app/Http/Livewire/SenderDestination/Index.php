@@ -19,7 +19,7 @@ class Index extends Component
     {   
         SenderDestination::findOrFail($this->delete_id)->delete();
         $this->reset('delete_id');
-        return redirect('admin/sender-destinations');
+        return redirect('staff/sender-destinations');
     }
 
 }

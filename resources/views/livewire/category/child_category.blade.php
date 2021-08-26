@@ -6,7 +6,7 @@
     </td>
     <td class="px-2 py-2 text-sm border text-center">
         <div class="w-full flex flex-row justify-around">
-            <a href="{{url('admin/categories')}}/{{$child_category->id}}/edit">
+            <a href="{{url('staff/categories')}}/{{$child_category->id}}/edit">
                 <i class="fas fa-edit"></i>
             </a>
             <button type="button" wire:click="$set('delete_id', {{ $child_category->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal">

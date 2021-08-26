@@ -38,6 +38,5 @@ class DepartmentsTableSeeder extends Seeder
         ];
 
         Department::insert($departments);
-
     }
 }

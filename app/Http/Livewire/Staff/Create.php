@@ -33,7 +33,7 @@ class Create extends Component
         $role = Role::select('id')->where('title','Staff')->first();
         $this->staff->roles()->sync($role->id);
 
-        return redirect()->route('admin.staff.index');
+        return redirect()->route('coordinator.staff.index');
     }
 
     protected function rules(): array

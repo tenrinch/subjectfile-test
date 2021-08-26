@@ -80,7 +80,7 @@ class Create extends Component
         }
 
         session()->flash('success', 'Incoming file added!');
-        return redirect(url('admin/incomings'));
+        return redirect(url('staff/incomings'));
     }
 
     protected function rules(): array

@@ -19,7 +19,7 @@ class Edit extends Component
         $this->validate();
         $this->sender_destination->update();
 
-        return redirect()->route('admin.sender-destinations.index');
+        return redirect()->route('staff.sender-destinations.index');
     }
 
     public function render()

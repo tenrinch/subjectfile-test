@@ -23,6 +23,6 @@ class Index extends Component
         User::findOrFail($this->delete_id)->delete();
         $this->reset('delete_id');
 
-        return redirect('admin/staff');
+        return redirect('coordinator/staff');
     }
 }
