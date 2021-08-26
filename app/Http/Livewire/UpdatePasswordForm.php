@@ -3,12 +3,10 @@
 namespace App\Http\Livewire;
 
 use Hash;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class UpdatePasswordForm extends Component
 {
-    use AuthorizesRequests;
 
     public $state = [];
 
@@ -24,7 +22,6 @@ class UpdatePasswordForm extends Component
 
     public function updatePassword()
     {
-        $this->authorize('auth_profile_edit');
 
         $this->resetErrorBag();
 
