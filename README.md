@@ -37,6 +37,6 @@ And that's it, Go to the domain and login with these credentials: admin@admin.co
 ## Admin (us)
 
 - By default, Admin have every roles so it has access to every components
-- Admin has access to departments which is used to give access to the projects to departments
+- Admin has access to departments which is used to give access the projects to departments
 - Only Admin should have the right to Users, Roles, Permissions & Departments. 
 
