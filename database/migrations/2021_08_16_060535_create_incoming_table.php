@@ -20,7 +20,7 @@ class CreateIncomingTable extends Migration
             $table->bigInteger('dispatched_no')->nullable();
             $table->date('received_date');
             $table->integer('year');
-            $table->foreignId('sender')->references('id')->on('departments');
+            $table->foreignId('sender')->references('id')->on('sender_destinations');
             $table->mediumText('subject');
             $table->enum('status', ['pending', 'closed'])->default('pending');
             $table->foreignId('entered_by')->references('id')->on('users');
