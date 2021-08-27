@@ -6,15 +6,16 @@ use Livewire\Component;
 use App\Models\Incoming;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
+use Livewire\WithPagination;
 
 class Index extends Component
 {   
-    
+    use WithPagination;
     public $delete_id;
 
     public function render()
     {   
-        $incomings = Incoming::get();
+        $incomings = Incoming::paginate(20);
         return view('livewire.incoming.index',compact('incomings'));
     }
 

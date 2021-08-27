@@ -9,6 +9,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SenderDestination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -70,7 +71,7 @@ class Create extends Component
                 $media = [];
                 $media['type']      = 'outgoing';
                 $media['name']      = $file_name;
-                $media['path']      = $file->storeAs(Auth::user()->department->title.'/outgoings',$file_name);
+                $media['path']      = $file->storeAs(Auth::user()->department->slug.'/outgoings',Str::slug($file_name, '-'));
 
                 $this->outgoing->medias()->create($media);
             }

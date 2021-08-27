@@ -16,7 +16,7 @@ class CreateIncomingTable extends Migration
         Schema::create('incomings', function (Blueprint $table) {
             $table->id();
             $table->integer('incoming_no')->default(0);
-            $table->integer('file_no');
+            $table->string('file_no');
             $table->bigInteger('dispatched_no')->nullable();
             $table->date('received_date');
             $table->integer('year');

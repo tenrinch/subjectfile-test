@@ -11,6 +11,7 @@ use App\Models\Department;
 use App\Models\SenderDestination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Edit extends Component
 {
@@ -28,8 +29,8 @@ class Edit extends Component
     public function mount(Incoming $incoming)
     {   
         $this->incoming = $incoming;
-        $this->listCategories = Category::list()->whereNull('subcategory_of');
-        $this->listSenders = SenderDestination::list()
+        $this->listCategories = Category::get()->whereNull('subcategory_of');
+        $this->listSenders = SenderDestination::get()
         ->where('fixed',1)
         ->pluck('title','id')
         ->toArray();
@@ -39,7 +40,7 @@ class Edit extends Component
     {   
         if(!empty($this->incoming->year))
         {
-            $this->incoming->incoming_no = Incoming::list()
+            $this->incoming->incoming_no = Incoming::get()
                 ->where('year',$this->incoming->year)
                 ->max('incoming_no') + 1;
         }
@@ -70,7 +71,7 @@ class Edit extends Component
                 $media = [];
                 $media['type']      = 'incoming';
                 $media['name']      = $file_name;
-                $media['path']      = $file->storeAs(Auth::user()->department->title.'/incomings',$file_name);
+                $media['path']      = $file->storeAs(Auth::user()->department->slug.'/incomings',Str::slug($file_name, '-'));
 
                 $this->incoming->medias()->create($media);
             }
@@ -99,7 +100,7 @@ class Edit extends Component
                 'string',
             ],
             'incoming.file_no' => [
-                'integer',
+                'string',
                 'required',
             ],
             'incoming.year' => [
