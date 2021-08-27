@@ -6,9 +6,10 @@ This database is acting as a centralised database for e-filling storage for the 
 
 - **Run ```cp .env.example .env``` command to copy example into real .env file, then edit it with DB credentials and other settings you** want
 - **Run ```composer install``` command**
-- **Run ```php artisan migrate --seed``` command. Seed is important, because it will create the first admin user for you.**
 - **Run ```php artisan key:generate``` command**
 - **Run ```php artisan storage:link``` command**
+- **Run ```php artisan migrate --seed``` command. Seed is important, because it will create the first admin user for you.**
+- **If you want dummy data, run ```php artisan db:seed --class=DummyDataSeeder``` command. Seed is important, because it will create the first admin user for you.**
 
 And that's it, Go to the domain and login with these credentials: admin@admin.com - password
 
