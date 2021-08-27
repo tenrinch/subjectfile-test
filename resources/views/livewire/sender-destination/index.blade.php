@@ -21,9 +21,9 @@
             <tbody>
                 @foreach($sender_destinations as $sender_destination)
                 <tr>
-                    <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$sender_destination->title}}</td>
-                    <td class="px-2 py-1 text-xs border text-center">
+                    <td class="px-2 py-2 text-xs border text-center">{{$loop->iteration}}</td>
+                    <td class="px-2 py-2 text-xs border">{{$sender_destination->title}}</td>
+                    <td class="px-2 py-2 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
                             <a href="{{url('staff/sender-destinations')}}/{{$sender_destination->id}}/edit">
                                 <i class="fas fa-edit"></i>

@@ -27,6 +27,10 @@ class StaffController extends Controller
     {   
         abort_if(Gate::denies('staff_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         abort_if($staff->department_id != Auth::user()->department_id, Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if($staff->id == Auth::id())
+        {
+            return redirect('profile');
+        }
         return view('coordinator.staff.edit',compact('staff'));
     }
 }

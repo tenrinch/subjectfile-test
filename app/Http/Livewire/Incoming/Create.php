@@ -11,7 +11,7 @@ use App\Models\Department;
 use App\Models\SenderDestination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
-
+use Illuminate\Support\Str;
 class Create extends Component
 {   
     use WithFileUploads;
@@ -67,11 +67,12 @@ class Create extends Component
         {      
             foreach($this->files as $file) 
             {
+
                 $file_name = $file->getClientOriginalName();
                 $media = [];
                 $media['type']      = 'incoming';
                 $media['name']      = $file_name;
-                $media['path']      = $file->storeAs(Auth::user()->department->title.'/incomings',$file_name);
+                $media['path']      = $file->storeAs(Auth::user()->department->slug.'/incomings',Str::slug($file_name, '-'));
 
                 $this->incoming->medias()->create($media);
             }

@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div>
-        <table class="w-full text-sm bg-white mt-3">
+    <div class="pb-4">
+        <table class="w-full text-sm bg-white mt-3 mb-2">
             <thead>
                 <tr class="uppercase font-semibold text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
                     <td class="px-2 py-3 text-xs border-r text-center">#</td>
@@ -39,7 +39,7 @@
                         </a>
                     </td>
                     <td class="px-2 py-1 text-xs border">{{$incoming->received_date}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$incoming->senders->title}}</td>
+                    <td class="px-2 py-1 text-xs border">{{$incoming->senders ? $incoming->senders->title : 'Incorrect Sender'}}</td>
                     <td class="px-2 py-1 text-xs border">{{$incoming->subject}}</td>
                     <td class="px-2 py-1 text-xs border text-center">
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($incoming->status == 'pending') bg-red-100 text-red-800 @else bg-green-100 text-green-800 @endif">
@@ -80,6 +80,7 @@
                 @endforeach 
             </tbody>
         </table>
+        {{ $incomings->links() }}
     </div>
     @include('livewire.delete-modal')
 </div>

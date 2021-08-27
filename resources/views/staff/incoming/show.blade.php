@@ -33,7 +33,7 @@
                     Category
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->category->title}}
+                    {{$incoming->category ? $incoming->category->title : 'Incorrect Category'}}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -49,7 +49,7 @@
                     Sender
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {{$incoming->senders->title}}
+                    {{$incoming->senders ? $incoming->senders->title : 'Incorrect Sender'}}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

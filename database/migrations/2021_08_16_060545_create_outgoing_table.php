@@ -15,11 +15,12 @@ class CreateOutgoingTable extends Migration
     {
         Schema::create('outgoings', function (Blueprint $table) {
             $table->id();
-            $table->integer('dispatched_no')->default(0);
-            $table->integer('file_no');
+            $table->integer('outgoing_no')->default(0);
+            $table->bigInteger('dispatched_no')->nullable();
+            $table->string('file_no');
             $table->date('dispatched_date');
             $table->integer('year');
-            $table->foreignId('sender')->constrained('sender_destinations');
+            $table->foreignId('destination')->constrained('sender_destinations');
             $table->mediumText('subject');
             $table->enum('status', ['pending', 'closed'])->default('pending');
             $table->foreignId('entered_by')->constrained('users');
