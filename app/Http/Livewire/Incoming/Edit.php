@@ -84,6 +84,7 @@ class Edit extends Component
     public function removeFile($media_id)
     {
         Media::find($media_id)->delete();  
+        session()->flash('delete', 'File uploaded removed!');
         return redirect(url('staff/incomings/'.$this->incoming->id.'/edit'));
     }
 

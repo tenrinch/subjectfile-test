@@ -81,6 +81,7 @@ class Edit extends Component
     public function removeFile($media_id)
     {
         $this->outgoing->files->where('id',$media_id)->delete(); 
+        session()->flash('delete', 'File uploaded removed!');
         return redirect(url('staff/outgoings/'.$this->outgoing->id.'/edit'));
     }
 
