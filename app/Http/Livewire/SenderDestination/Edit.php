@@ -19,6 +19,7 @@ class Edit extends Component
         $this->validate();
         $this->sender_destination->update();
 
+        session()->flash('success', 'Sender/Destination updated!');
         return redirect()->route('staff.sender-destinations.index');
     }
 

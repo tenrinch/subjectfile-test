@@ -32,6 +32,7 @@ class Index extends Component
         //Category::where('subcategory_of',$this->delete_id)->update(['subcategory_of'=>null]);
         $this->reset('delete_id');
 
+        session()->flash('delete', 'Category deleted!');
         return redirect('staff/categories');
     }
 }

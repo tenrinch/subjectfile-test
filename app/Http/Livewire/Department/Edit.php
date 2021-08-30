@@ -23,7 +23,7 @@ class Edit extends Component
         $this->validate();
         $this->department->update();
 
-        session()->flash('success', 'Department added!');
+        session()->flash('success', 'Department updated!');
         return redirect(url('admin/departments'));
     }
 

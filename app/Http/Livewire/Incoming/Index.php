@@ -25,6 +25,7 @@ class Index extends Component
         Incoming::findOrFail($this->delete_id)->delete();
         $this->reset('delete_id');
 
+        session()->flash('delete', 'Incoming file deleted!');
         return redirect('staff/incomings');
     }
 }

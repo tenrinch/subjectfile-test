@@ -77,7 +77,7 @@ class Edit extends Component
             }
         }
 
-        session()->flash('success', 'Incoming file added!');
+        session()->flash('success', 'Incoming file updated!');
         return redirect(url('staff/incomings'));
     }
 

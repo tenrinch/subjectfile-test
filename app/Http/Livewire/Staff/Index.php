@@ -20,9 +20,11 @@ class Index extends Component
     public function delete()
     {   
         abort_if(Gate::denies('staff_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Auth::id()==$this->delete_id, Response::HTTP_FORBIDDEN, '403 Forbidden');
         User::findOrFail($this->delete_id)->delete();
         $this->reset('delete_id');
 
+        session()->flash('delete', 'Staff deleted!');
         return redirect('coordinator/staff');
     }
 }

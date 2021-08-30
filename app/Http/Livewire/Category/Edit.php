@@ -29,7 +29,6 @@ class Edit extends Component
         {
             $this->listCategories = Category::get()->whereNull('subcategory_of');
         }
-        
     }
 
     public function render()
@@ -42,7 +41,7 @@ class Edit extends Component
         $this->validate();
         $this->category->update();
 
-        session()->flash('success', 'Category added!');
+        session()->flash('success', 'Category updated!');
         return redirect(url('staff/categories/'));
     }
 
