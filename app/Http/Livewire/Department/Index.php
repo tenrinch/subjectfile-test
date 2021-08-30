@@ -23,6 +23,7 @@ class Index extends Component
         Department::findOrFail($this->delete_id)->delete();
         $this->reset('delete_id');
 
+        session()->flash('delete', 'Department deleted!');
         return redirect('admin/departments');
     }
 }

@@ -39,6 +39,7 @@ class UpdatePassword extends Component
 
         $this->resetState();
 
+        session()->flash('success', 'Staff password updated!');
         return redirect()->route('coordinator.staff.index');
     }
 
