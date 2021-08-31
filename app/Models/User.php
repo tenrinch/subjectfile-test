@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
 use Carbon\Carbon;
 use Hash;
+use App\Traits\Auditable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,7 @@ class User extends Authenticatable
     use HasAdvancedFilter;
     use SoftDeletes;
     use Notifiable;
+    use Auditable;
 
     public $table = 'users';
 
@@ -82,10 +84,10 @@ class User extends Authenticatable
 
     static function listStaff()
     {
-        return User::whereHas('roles', fn($q) => $q->where('title','Staff'))
-        ->where('department_id',Auth::user()->department_id)
-        ->where('id','<>',Auth::id())
-        ->get();
+        return User::whereHas('roles', fn ($q) => $q->where('title', 'Staff'))
+            ->where('department_id', Auth::user()->department_id)
+            ->where('id', '<>', Auth::id())
+            ->get();
     }
 
     public function roles()

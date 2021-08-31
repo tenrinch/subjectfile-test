@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\WithDepartment;
 
 class Category extends Model
-{   
+{
     use WithDepartment;
     use HasFactory;
+    use Auditable;
 
     protected $table = 'category';
 
-    protected $fillable = ['title','department_id','subcategory_of'];
+    protected $fillable = ['title', 'department_id', 'subcategory_of'];
 
     public function departments()
     {
@@ -23,21 +25,21 @@ class Category extends Model
 
     public function child()
     {
-        return $this->hasMany(Category::class,'subcategory_of');
+        return $this->hasMany(Category::class, 'subcategory_of');
     }
 
     public function parent()
     {
-        return $this->belongsTo(Category::class,'subcategory_of');
+        return $this->belongsTo(Category::class, 'subcategory_of');
     }
-    
-    public static function boot() {
+
+    public static function boot()
+    {
         parent::boot();
 
-        self::deleting(function($category) 
-        { // before delete() method call this
-            Category::where('subcategory_of',$category->id)
-            ->update(['subcategory_of'=>null]);
+        self::deleting(function ($category) { // before delete() method call this
+            Category::where('subcategory_of', $category->id)
+                ->update(['subcategory_of' => null]);
         });
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\AuditLogController;
 
 use App\Http\Controllers\Staff\IncomingController;
 use App\Http\Controllers\Staff\OutgoingController;
@@ -23,7 +24,10 @@ Auth::routes(['register' => false]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','admin']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+
+    // Audit Logs
+    Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
 
     // Permissions
     Route::resource('permissions', PermissionController::class, ['except' => ['store', 'update', 'destroy']]);
@@ -36,30 +40,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','ad
 
     //Departments
     Route::resource('departments', DepartmentController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
-    
 });
 
-Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => ['auth','staff']], function () {
+Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => ['auth', 'staff']], function () {
 
     //SenderDestination
     Route::resource('sender-destinations', SenderDestinationController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
 
     //Incoming
     Route::resource('incomings', IncomingController::class, ['except' => ['store', 'update', 'destroy']]);
-    
-    //Outgoing 
+
+    //Outgoing
     Route::resource('outgoings', OutgoingController::class, ['except' => ['store', 'update', 'destroy']]);
 
     //Category
     Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
-
 });
 
-Route::group(['prefix' => 'coordinator', 'as' => 'coordinator.', 'middleware' => ['auth','coordinator']], function () {
-    
+Route::group(['prefix' => 'coordinator', 'as' => 'coordinator.', 'middleware' => ['auth', 'coordinator']], function () {
+
     //Staff
     Route::resource('staff', StaffController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
-
 });
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth']], function () {
