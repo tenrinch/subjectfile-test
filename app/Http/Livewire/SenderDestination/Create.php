@@ -7,12 +7,22 @@ use App\Models\SenderDestination;
 use Illuminate\Support\Facades\Auth;
 
 class Create extends Component
-{   
+{
     public SenderDestination $sender_destination;
+
+    public $listSenderDestinations = [];
+
+    protected $listeners = ['parent_selected' => 'setParent'];
+
+    public function setParent($value)
+    {
+        $this->sender_destination->subsenderdestination_of = $value;
+    }
 
     public function mount(SenderDestination $sender_destination)
     {
         $this->sender_destination = $sender_destination;
+        $this->listSenderDestinations = SenderDestination::get()->whereNull('subsenderdestination_of');
     }
 
     public function render()
@@ -26,6 +36,7 @@ class Create extends Component
         $this->sender_destination->fixed = 1;
         $this->sender_destination->save();
 
+        session()->flash('success', 'Sender Destination added!');
         return redirect()->route('staff.sender-destinations.index');
     }
 
@@ -35,6 +46,9 @@ class Create extends Component
             'sender_destination.title' => [
                 'string',
                 'required',
+            ],
+            'sender_destination.subsenderdestination_of' => [
+                'integer'
             ]
         ];
     }
