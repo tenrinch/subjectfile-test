@@ -20,7 +20,7 @@ class Edit extends Component
     public Incoming $incoming;
 
     public $files;
-
+    public $year,$incoming_no;
     public $listCategories = [];
     public $listSenders = [];
 
@@ -34,22 +34,25 @@ class Edit extends Component
         ->where('fixed',1)
         ->pluck('title','id')
         ->toArray();
+        $this->year = $this->incoming->year;
+        $this->incoming_no = $this->incoming->incoming_no;
     }
 
     public function render()
     {   
-        if(!empty($this->incoming->year))
-        {
-            $this->incoming->incoming_no = Incoming::get()
-                ->where('year',$this->incoming->year)
-                ->max('incoming_no') + 1;
-        }
-        else
-        {
-            $this->incoming->incoming_no = null;
-        }
-
         return view('livewire.incoming.edit');
+    }
+
+    public function updatedYear($value)
+    {
+        if($value == $this->incoming->year)
+        {
+            $this->incoming_no = $this->incoming->incoming_no;
+        }
+        else{
+            $this->incoming_no = Incoming::select('incoming_no')
+            ->where('year',$this->year)->max('incoming_no') + 1;
+        }
     }
 
     public function setCategory($category)
@@ -60,6 +63,11 @@ class Edit extends Component
     public function update()
     {   
         $this->validate(); 
+        if($this->incoming->year != $this->year || $this->incoming->incoming_no != $this->incoming_no)
+        {
+            $this->incoming->year = $this->year;
+            $this->incoming->incoming_no = $this->incoming_no;
+        }
         $this->incoming->update();
        
         //If file is uploaded
@@ -91,8 +99,11 @@ class Edit extends Component
     protected function rules(): array
     {
         return [
-            'incoming.dispatched_no' => [
-                'integer',
+            'incoming.letter_no' => [
+                'string',
+            ],
+            'incoming.letter_date' => [
+                'date',
             ],
             'incoming.category_id' => [
                 'integer',
@@ -116,7 +127,7 @@ class Edit extends Component
                 'date',
                 'required',
             ],
-            'incoming.sender' => [
+            'incoming.sender_id' => [
                 'integer',
             ],
             'incoming.subject' => [
@@ -128,7 +139,9 @@ class Edit extends Component
             'incoming.urgency' => [
                 'string',
             ],
-
+            'incoming.remarks' => [
+                'string',
+            ],
         ];
     }
 }

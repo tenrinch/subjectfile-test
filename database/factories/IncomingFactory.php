@@ -35,16 +35,18 @@ class IncomingFactory extends Factory
         return [
             'incoming_no'       =>rand(1,100),
             'file_no'           =>Str::random(10),
-            'dispatched_no'     =>rand(1000,2000),
+            'letter_no'         =>rand(1000,2000),
             'received_date'     =>date_create(rand(2000,2021)."-".rand(1,12)."-".rand(1,30)),
             'year'              =>rand(2000,2021),
-            'sender'            =>$sender[$index],
+            'letter_date'       =>date_create(rand(2000,2021)."-".rand(1,12)."-".rand(1,30)),
+            'sender_id'            =>$sender[$index],
             'subject'           =>Str::random(40),
             'status'            =>'Pending',
             'entered_by'        =>$user,
             'department_id'     =>$user,
             'mode'              =>'Post',
             'urgency'           =>'Urgent',
+            'remarks'           =>Str::random(4).Str::random(12).Str::random(8).Str::random(4).Str::random(10),
             'category_id'       =>$category[$i],
         ];
     }

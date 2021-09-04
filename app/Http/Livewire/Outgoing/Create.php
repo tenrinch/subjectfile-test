@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\SenderDestination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class Create extends Component
 {
@@ -17,39 +18,40 @@ class Create extends Component
 
     public Outgoing $outgoing;
 
-    public $files;
-
+    public $files, $year, $cc;
+    public $destination = [];
     public $listCategories = [];
     public $listDestinations = [];
+    public $listCC = [];
+    public $destinations = [];
 
     protected $listeners = ['parent_selected' => 'setCategory'];
 
     public function mount(Outgoing $outgoing)
     {   
+        $this->cc = false;
         $this->outgoing = $outgoing;
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listDestinations = SenderDestination::get()
         ->where('fixed',1)
         ->pluck('title','id')
         ->toArray();
+        $this->year = date('Y'); //Gets current year
+        $this->outgoing->dispatched_no = Outgoing::select('dispatched_no')
+            ->where('year',$this->year)->max('dispatched_no') + 1;
     }
 
     public function render()
     {   
-        if(!empty($this->outgoing->year))
-        {   
-            $this->outgoing->dispatched_no = Outgoing::get()
-                ->where('year',$this->outgoing->year)
-                ->max('dispatched_no') + 1;
-        }
-        else
-        {
-            $this->outgoing->dispatched_no = null;
-        }
-
         return view('livewire.outgoing.create');
     }
-
+    
+    public function updatedYear($value)
+    {
+        $this->outgoing->dispatched_no = Outgoing::select('dispatched_no')
+            ->where('year',$this->year)->max('dispatched_no') + 1;
+    }
+    
     public function setCategory($category)
     {
         $this->outgoing->category_id = $category;
@@ -58,10 +60,25 @@ class Create extends Component
     public function submit()
     {   
         $this->validate();
-        $this->outgoing->entered_by     = Auth::id();
-        $this->outgoing->department_id  = Auth::user()->department_id; 
+        $this->outgoing->year = $this->year;
+        
+        if($this->outgoing->destination_id === '0')
+        {
+            $destination = SenderDestination::create($this->destination);
+            $this->outgoing->destination_id = $destination->id; 
+        }
         $this->outgoing->save();
-       
+
+        if(!empty($this->destinations))
+        {
+            $this->destinations = Arr::where($this->destinations, function ($value, $key) {
+                if($value != $this->outgoing->destination_id){
+                    return $value;
+                }
+            });
+            $this->outgoing->destinations()->sync($this->destinations);
+        }
+        
         //If file is uploaded
         if($this->files)
         {      
@@ -105,16 +122,18 @@ class Create extends Component
             ],
             'outgoing.year' => [
                 'integer',
-                'required',
             ],
             'outgoing.dispatched_date' => [
                 'date',
                 'required',
             ],
-            'outgoing.destination' => [
+            'outgoing.destination_id' => [
                 'integer',
             ],
             'outgoing.subject' => [
+                'string',
+            ],
+            'outgoing.remarks' => [
                 'string',
             ]
         ];

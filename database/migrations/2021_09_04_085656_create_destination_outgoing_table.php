@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddModeToIncomingsTable extends Migration
+class CreateDestinationOutgoingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddModeToIncomingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('incomings', function (Blueprint $table) {
-            $table->string('mode')->nullable();
-            $table->string('urgency')->nullable();
+        Schema::create('destination_outgoing', function (Blueprint $table) {
+            $table->foreignId('outgoing_id')->references('id')->on('outgoings');
+            $table->foreignId('destination_id')->references('id')->on('sender_destinations');
         });
     }
 
@@ -26,8 +26,6 @@ class AddModeToIncomingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('incomings', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('destination_outgoing');
     }
 }

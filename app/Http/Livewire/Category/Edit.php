@@ -21,14 +21,7 @@ class Edit extends Component
     public function mount($category)
     {
         $this->category = $category;
-        if($this->category->parent)
-        {
-            $this->listCategories = Category::get()->where('subcategory_of',$this->category->subcategory_of);
-        }
-        else
-        {
-            $this->listCategories = Category::get()->whereNull('subcategory_of');
-        }
+        $this->listCategories = Category::get()->where('subcategory_of',$this->category->subcategory_of);
     }
 
     public function render()

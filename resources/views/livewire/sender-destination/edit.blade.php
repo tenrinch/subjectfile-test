@@ -7,10 +7,17 @@
                     <label class="block text-sm font-medium text-gray-700">
                        Title
                     </label>
-                    <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="sender_destination.title" required>
+                    <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model="sender_destination.title" required>
                     <p class="text-xs text-red-600 italic">{{ $errors->first('sender_destination.title') }}</p>
                 </div>
 
+                <div class="col-span-2">
+                    <label for="last-name" class="block text-sm font-medium text-gray-700">Recurring Sender</label>
+                    <input type="radio"  name="sender" value="1" wire:model="sender_destination.fixed">
+                    <label for="html">Yes</label>
+                    <input type="radio"  name="sender" value="0" class="ml-3" wire:model="sender_destination.fixed">
+                    <label for="css">No</label>              
+                </div>
             </div>
         </div>
 

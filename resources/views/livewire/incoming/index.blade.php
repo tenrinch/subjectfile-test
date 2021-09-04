@@ -12,74 +12,7 @@
     </div>
 
     <div class="pb-4">
-        <table class="w-full text-sm bg-white mt-3 mb-2">
-            <thead>
-                <tr class="uppercase font-semibold text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
-                    <td class="px-2 py-3 text-xs border-r text-center">#</td>
-                    <td class="px-2 py-3 text-xs border-r">Dispatched No</td>
-                    <td class="px-2 py-3 text-xs border-r ">Received Date</td>
-                    <td class="px-2 py-3 text-xs border-r ">Sender</td>
-                    <td class="px-2 py-3 text-xs border-r">Subject</td>
-                    <td class="px-2 py-3 text-xs border-r text-center">Status</td>
-                    <td class="px-2 py-3 text-xs border-r">File Uploaded</td>
-                    <td class="px-2 py-3 text-xs border-r"></td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($incomings as $incoming)
-                <tr>
-                    <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
-                    <td class="px-2 py-1 text-xs border">
-                        <a href="{{url('staff/incomings/show')}}" class="hover:no-underline ">
-                            <div class="flex items-center text-sm">
-                                <div class="">
-                                    <p class="text-xs text-black hover:text-blue-600">{{$incoming->dispatched_no}}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </td>
-                    <td class="px-2 py-1 text-xs border">{{$incoming->received_date}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$incoming->senders ? $incoming->senders->title : 'Incorrect Sender'}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$incoming->subject}}</td>
-                    <td class="px-2 py-1 text-xs border text-center">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($incoming->status == 'pending') bg-red-100 text-red-800 @else bg-green-100 text-green-800 @endif">
-                        {{$incoming->status}}
-                        </span>
-                    </td>
-                    <td class="px-2 py-1 text-xs border">
-                        <div class="flex flex-row justify-around">
-                            @if($incoming->files)
-                                @foreach($incoming->files as $file)
-                                <a href="{{ asset('storage')}}/{{$file->path}}" class="hover:no-underline" target="_blank">
-                                    <i class="fas fa-file"></i>
-                                </a>
-                                @endforeach
-                            @endif
-                        </div>
-                    </td>
-                    <td class="px-2 py-1 text-xs border text-center">
-                        <div class="w-full flex flex-row justify-around">
-                            @can('incoming_view')
-                            <a href="{{url('staff/incomings')}}/{{$incoming->id}}" class="text-blue-600">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                            @endcan
-                            @can('incoming_edit')
-                            <a href="{{url('staff/incomings')}}/{{$incoming->id}}/edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            @endcan
-                            @can('incoming_delete')
-                            <button type="button" wire:click="$set('delete_id', {{ $incoming->id }})" wire:loading.attr="disabled" data-toggle="modal" data-target="#delete_modal" class="text-red-600">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                            @endcan
-                        </div>
-                    </td>
-                </tr>
-                @endforeach 
-            </tbody>
-        </table>
+        @include('staff.table',['letter'=>'incomings','records'=>$incomings])
         {{ $incomings->links() }}
     </div>
     @include('livewire.delete-modal')

@@ -8,36 +8,38 @@
                         @livewire('category.show-parent-category',['categories'=>$listCategories])
                     </div>
 
-                    <div class="lg:col-span-3 md:col-span-3 sm:col-span-6">
-                        <label class="block text-sm font-medium text-gray-700">File Number</label>
-                        <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required wire:model.defer="incoming.file_no">
-                        <p class="text-xs text-red-600">{{ $errors->first('incoming.file_no') }}</p>
-                    </div>
-
-                    <div class="lg:col-span-3 md:col-span-3 sm:col-span-6">
-                        <label class="block text-sm font-medium text-gray-700">
-                           Dispatched Number
-                        </label>
-                        <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.dispatched_no">
-                        <p class="text-xs text-red-600">{{ $errors->first('incoming.dispatched_no') }}</p>
-                    </div>
-
                     <div class="lg:col-span-2 md:col-span-3 sm:col-span-6">
-                        <label class="block text-sm font-medium text-gray-700">Year</label>
-                        <select class="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model="incoming.year">
-                            <option value=''>Select</option>
-                            @for($i = 2012 ; $i<=2021; $i++)
+                         <label class="block text-sm font-medium text-gray-700">
+                           Year
+                        </label>
+                        <select class="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model="year">
+                            @for($i = date('Y'); $i >= 2000; $i--)
                             <option>{{$i}}</option>
                             @endfor
-                        </select>
-                        <p class="text-xs text-red-600">{{ $errors->first('incoming.year') }}</p>
+                        </select>     
                     </div>
 
                     <div class="lg:col-span-2 md:col-span-3 sm:col-span-6">
                         <label class="block text-sm font-medium text-gray-700">
                            Incoming Number
                         </label>
-                        <input type="text"  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" disabled wire:model.defer="incoming.incoming_no">
+                        <input type="text"  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.incoming_no">
+                    </div>
+
+                    <div class="lg:col-span-2 md:col-span-3 sm:col-span-6">
+                        <label class="block text-sm font-medium text-gray-700">
+                           Letter Number
+                        </label>
+                        <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.letter_no">
+                        <p class="text-xs text-red-600">{{ $errors->first('incoming.letter_no') }}</p>
+                    </div>
+
+                    <div class="lg:col-span-2 md:col-span-3 sm:col-span-6">
+                        <label class="block text-sm font-medium text-gray-700">
+                           Letter Date
+                        </label>
+                        <input type="date" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.letter_date">
+                        <p class="text-xs text-red-600">{{ $errors->first('incoming.letter_date') }}</p>
                     </div>
 
                     <div class="lg:col-span-2 md:col-span-3 sm:col-span-6">
@@ -48,16 +50,39 @@
                         <p class="text-xs text-red-600">{{ $errors->first('incoming.received_date') }}</p>
                     </div>
 
+                    <div class="lg:col-span-2 md:col-span-3 sm:col-span-6">
+                        <label class="block text-sm font-medium text-gray-700">File Number</label>
+                        <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required wire:model.defer="incoming.file_no">
+                        <p class="text-xs text-red-600">{{ $errors->first('incoming.file_no') }}</p>
+                    </div>
+                    
                     <div class="col-span-6">
                         <label class="block text-sm font-medium text-gray-700">Sender</label>
-                        <select class="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.sender">
+                        <select class="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model="incoming.sender_id">
                             <option value=''>Select</option>
-                            @foreach($listSenders as $key=>$value)
+                            <option value='0'>Enter New Sender</option>
+                            @foreach($listSenders as $key => $value)
                             <option value="{{$key}}">{{$value}}</option>
                             @endforeach
                         </select>
                         <p class="text-xs text-red-600">{{ $errors->first('incoming.sender') }}</p>
                     </div>
+
+                    @if($incoming->sender_id === '0')
+                    <div class="col-span-4">
+                        <label class="block text-sm font-medium text-gray-700">New Sender</label>
+                        <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="sender.title">
+                        <p class="text-xs text-red-600">{{ $errors->first('sender') }}</p>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="last-name" class="block text-sm font-medium text-gray-700">Recurring Sender</label>
+                        <input type="radio"  name="sender" value="1" wire:model.defer="sender.fixed">
+                        <label for="html">Yes</label>
+                        <input type="radio"  name="sender" value="0" class="ml-3" wire:model.defer="sender.fixed">
+                        <label for="css">No</label>              
+                    </div>
+                    @endif
 
                     <div class="md:col-span-6 sm:col-span-6">
                         <label class="block text-sm font-medium text-gray-700">Subject</label>
@@ -92,6 +117,12 @@
                         <label for="html">Pending</label>
                         <input type="radio"  name="gender" value="closed" class="ml-3" wire:model.defer="incoming.status">
                         <label for="css">Closed</label>              
+                    </div>
+
+                    <div class="md:col-span-6 sm:col-span-6">
+                        <label class="block text-sm font-medium text-gray-700">Remarks</label>
+                        <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.remarks">
+                        <p class="text-xs text-red-600">{{ $errors->first('incoming.remarks') }}</p>
                     </div>
                     
                     <div class="col-span-6">

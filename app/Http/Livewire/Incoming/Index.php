@@ -15,7 +15,7 @@ class Index extends Component
 
     public function render()
     {   
-        $incomings = Incoming::paginate(20);
+        $incomings = Incoming::orderBy('incoming_no')->paginate(20);
         return view('livewire.incoming.index',compact('incomings'));
     }
 

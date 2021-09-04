@@ -13,7 +13,8 @@
 
     @if(isset($category_selected) AND count($category_selected->child))
 
-        @livewire('category.show-parent-category',['categories'=>$category_selected->child], key($category_selected->id))   
+        @livewire('category.show-parent-category',['categories'=>$category_selected->child], 
+        key($category_selected->id))   
 
     @endif
 </div>

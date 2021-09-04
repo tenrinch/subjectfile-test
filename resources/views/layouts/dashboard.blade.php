@@ -10,7 +10,7 @@
         <meta name="theme-color" content="#ffffff">
         <!-- Icons-->
         <link href="{{ asset('css/free.min.css') }}" rel="stylesheet"> <!-- icons -->
-        <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet"> <!-- icons -->
+
         <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
         <!-- Main styles for this application-->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -64,7 +64,7 @@
                                 x-transition:leave="transition ease-out duration-500"
                                 x-transition:leave-start="transform translate-x-0 opacity-100"
                                 x-transition:leave-end="transform translate-x-full opacity-0">
-                              <i class="text-sm fas fa-times text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
+                              <i class="text-sm fas fa-exclamation-circle text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
                               </i>
                               <span class="text-red-800 text-xs"> {{ session('delete') }} </span>
                             </div>

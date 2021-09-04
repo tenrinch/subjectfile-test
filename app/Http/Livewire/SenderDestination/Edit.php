@@ -34,6 +34,10 @@ class Edit extends Component
             'sender_destination.title' => [
                 'string',
                 'required',
+            ],
+            'sender_destination.fixed' => [
+                'integer',
+                'required',
             ]
         ];
     }

@@ -11,7 +11,7 @@ class Index extends Component
 
     public function render()
     {   
-        $sender_destinations = SenderDestination::get();
+        $sender_destinations = SenderDestination::where('fixed',1)->get();
         return view('livewire.sender-destination.index',compact('sender_destinations'));
     }
 

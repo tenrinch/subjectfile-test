@@ -10916,7 +10916,7 @@ html:not([dir="rtl"]) .progress-group-icon {
       flex-direction: column;
   -ms-flex-order: -1;
       order: -1;
-  width: 256px;
+  width: 200px;
   padding: 0;
   box-shadow: none;
 }
@@ -12045,7 +12045,7 @@ html:not([dir="rtl"])
   html:not([dir="rtl"]) .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper,
   html:not([dir="rtl"])
   .c-sidebar.c-sidebar-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper {
-    margin-left: 256px;
+    margin-left: 198px;
   }
 
   *[dir="rtl"] .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper,
