@@ -16,6 +16,8 @@
 
 <body class="text-blueGray-800 antialiased">
 
+    
+               
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div id="app">
@@ -29,10 +31,7 @@
             </div>
 
             <div class="relative px-4 md:px-10 mx-auto w-full min-h-full -m-48">
-                @if(session('status'))
-                    <x-alert message="{{ session('status') }}" variant="indigo" role="alert" />
-                @endif
-
+        
                 @yield('content')
 
                 <x-footer />

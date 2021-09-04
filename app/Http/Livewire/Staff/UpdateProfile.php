@@ -32,6 +32,7 @@ class UpdateProfile extends Component
 
         $this->staff->update();
 
+        session()->flash('success', 'Staff profile updated!');
         return redirect()->route('coordinator.staff.index');
     }
 

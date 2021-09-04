@@ -12,7 +12,7 @@ class Create extends Component
 
     public $listSenderDestinations = [];
 
-    protected $listeners = ['parent_selected' => 'setParent'];
+    protected $listeners = ['sender_destination_selected' => 'setParent'];
 
     public function setParent($value)
     {

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\WithDepartment;
+use Carbon\Carbon;
 
 class Incoming extends Model
 {   
     use WithDepartment;
-
     use HasFactory;
 
     protected $table = 'incomings';
@@ -18,10 +18,11 @@ class Incoming extends Model
     protected $fillable = [
         'incoming_no',
         'file_no',
-        'dispatched_no',
+        'letter_no',
+        'letter_date',
         'received_date',
         'year', 
-        'sender', 
+        'sender_id', 
         'subject', 
         'status', 
         'entered_by',
@@ -29,6 +30,7 @@ class Incoming extends Model
         'mode',
         'urgency',
         'category_id',
+        'remarks',
     ];
 
     public function medias()
@@ -45,14 +47,18 @@ class Incoming extends Model
         return $this->belongsTo(Department::class);
     } 
 
-    public function senders()
+    public function sender()
     {
-        return $this->belongsTo(SenderDestination::class,'sender');
+        return $this->belongsTo(SenderDestination::class,'sender_id')->withDefault([
+            'title' => 'Incorrect Selection!'
+        ]);
     } 
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->withDefault([
+            'title' => 'Incorrect Selection!'
+        ]);
     } 
 
     public static function boot() {
