@@ -7,9 +7,11 @@ use App\Support\HasAdvancedFilter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Livewire\WithDepartment;
 
 class AuditLog extends Model
 {
+    use WithDepartment;
     use HasFactory;
     use HasAdvancedFilter;
 
@@ -49,6 +51,8 @@ class AuditLog extends Model
         'user_id',
         'properties',
         'host',
+        'link',
+        'department_id',
     ];
 
     public function getCreatedAtAttribute($value)
@@ -64,5 +68,10 @@ class AuditLog extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 }

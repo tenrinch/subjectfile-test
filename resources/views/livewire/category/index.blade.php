@@ -2,9 +2,9 @@
     <table class="w-full text-sm bg-white mt-3">
         <thead>
             <tr class="uppercase font-semibold text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
-                <td class="pl-4 py-3 text-xs border-r">#</td>
-                <td class="px-2 py-3 text-xs border-r">Dispatched No</td>
-                <td class="px-2 py-3 text-xs border-r"></td>
+                <td class="pl-4 py-3 text-sm border-r">#</td>
+                <td class="px-2 py-3 text-sm border-r">Dispatched No</td>
+                <td class="px-2 py-3 text-sm border-r"></td>
             </tr>
         </thead>
         <tbody class="bodyig">

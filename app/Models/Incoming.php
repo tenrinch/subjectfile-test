@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\WithDepartment;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incoming extends Model
 {
     use WithDepartment;
     use HasFactory;
     use Auditable;
-
+    use SoftDeletes;
+    
     protected $table = 'incomings';
 
     protected $fillable = [

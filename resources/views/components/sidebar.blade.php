@@ -65,7 +65,7 @@
 
     @can('audit_log_access')
     <li class="">
-        <a class="c-sidebar-nav-link" href="{{ route("admin.audit-logs.index") }}">
+        <a class="c-sidebar-nav-link" href="{{ route('audit-logs.index') }}">
             <i class="fa-fw c-sidebar-nav-icon fas fa-file-alt">
             </i>
             Audit Log

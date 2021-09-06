@@ -40,7 +40,33 @@ class DepartmentsTableSeeder extends Seeder
                 'id'    => 5,
                 'title' => 'Department of Home',
                 'slug' => Str::slug('Department of Home', '-'),
+            ],
+            [
+                'id'    => 6,
+                'title' => 'Religion',
+                'slug' => Str::slug('TCRC', '-'),
+            ],
+            [
+                'id'    => 2,
+                'title' => 'PSC',
+                'slug' => Str::slug('Kashag', '-'),
+            ],
+            [
+                'id'    => 3,
+                'title' => 'TSJC',
+                'slug' => Str::slug('TSJC', '-'),
+            ],
+            [
+                'id'    => 4,
+                'title' => 'TPiE',
+                'slug' => Str::slug('TPiE', '-'),
+            ],
+            [
+                'id'    => 5,
+                'title' => 'Department of Home',
+                'slug' => Str::slug('Department of Home', '-'),
             ]
+
         ];
 
         Department::insert($departments);

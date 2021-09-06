@@ -77,7 +77,6 @@ class Create extends Component
     {   
         $this->outgoing->year = $this->year;
         $this->validate();
-        
         if($this->parent === '0')
         {
             $destination = SenderDestination::create($this->destination);

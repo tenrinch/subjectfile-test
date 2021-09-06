@@ -1,5 +1,5 @@
 <div>
-    <div class="card-controls sm:flex">
+    <div class="">
         <div class="w-full sm:w-1/2">
             Per page:
             <select wire:model="perPage" class="form-select w-full sm:w-1/6">
@@ -21,143 +21,85 @@
             @endif
 
 
-
-
         </div>
         <div class="w-full sm:w-1/2 sm:text-right">
             Search:
             <input type="text" wire:model.debounce.300ms="search" class="w-full sm:w-1/3 inline-block" />
         </div>
     </div>
-    <div wire:loading.delay>
+     <div wire:loading.delay>
         Loading...
     </div>
-
-    <div class="overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="table table-index w-full">
-                <thead>
-                    <tr>
-                        <th class="w-9">
-                        </th>
-                        <th class="w-28">
-                            {{ trans('cruds.auditLog.fields.id') }}
-                            @include('components.table.sort', ['field' => 'id'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.description') }}
-                            @include('components.table.sort', ['field' => 'description'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.subject_id') }}
-                            @include('components.table.sort', ['field' => 'subject_id'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.subject_type') }}
-                            @include('components.table.sort', ['field' => 'subject_type'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.user_id') }}
-                            @include('components.table.sort', ['field' => 'user_id'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.properties') }}
-                            @include('components.table.sort', ['field' => 'properties'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.host') }}
-                            @include('components.table.sort', ['field' => 'host'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.auditLog.fields.created_at') }}
-                            @include('components.table.sort', ['field' => 'created_at'])
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($auditLogs as $auditLog)
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="{{ $auditLog->id }}" wire:model="selected">
-                        </td>
-                        <td>
-                            {{ $auditLog->id }}
-                        </td>
-                        <td>
-                            {{ $auditLog->description }}
-                        </td>
-                        <td>
-                            {{ $auditLog->subject_id }}
-                        </td>
-                        <td>
-                            {{ $auditLog->subject_type }}
-                        </td>
-                        <td>
-                            {{ $auditLog->user_id }}
-                        </td>
-                        <td>
-                            {{ $auditLog->properties }}
-                        </td>
-                        <td>
-                            {{ $auditLog->host }}
-                        </td>
-                        <td>
-                            {{ $auditLog->created_at }}
-                        </td>
-                        <td>
-                            <div class="flex justify-end">
-                                @can('audit_log_show')
-                                <a class="btn btn-sm btn-info mr-2" href="{{ route('admin.audit-logs.show', $auditLog) }}">
-                                    {{ trans('global.view') }}
-                                </a>
-                                @endcan
-                                @can('audit_log_edit')
-                                <a class="btn btn-sm btn-success mr-2" href="{{ route('admin.audit-logs.edit', $auditLog) }}">
-                                    {{ trans('global.edit') }}
-                                </a>
-                                @endcan
-                                @can('audit_log_delete')
-                                <button class="btn btn-sm btn-rose mr-2" type="button" wire:click="confirm('delete', {{ $auditLog->id }})" wire:loading.attr="disabled">
-                                    {{ trans('global.delete') }}
-                                </button>
-                                @endcan
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="10">No entries found.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="card-body">
-        <div class="pt-3">
-            @if($this->selectedCount)
-            <p class="text-sm leading-5">
-                <span class="font-medium">
-                    {{ $this->selectedCount }}
-                </span>
-                {{ __('Entries selected') }}
-            </p>
-            @endif
-            {{ $auditLogs->links() }}
-        </div>
-    </div>
+    <table class="w-full text-sm bg-white mt-3">
+        <thead>
+            <tr class="uppercase text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
+                <th class="pl-4 py-3 text-sm border-r">#</td>
+                <th class="px-2 py-3 text-sm border-r">
+                    {{ trans('cruds.auditLog.fields.id') }}
+                    @include('components.table.sort', ['field' => 'id'])
+                </th>
+                <th class="px-2 py-3 text-sm border-r">
+                    {{ trans('cruds.auditLog.fields.description') }}
+                    @include('components.table.sort', ['field' => 'description'])
+                </th>
+                <th class="px-2 py-3 text-sm border-r text-center">
+                    {{ trans('cruds.auditLog.fields.subject_id') }}
+                    @include('components.table.sort', ['field' => 'subject_id'])
+                </th>
+                <th class="px-2 py-3 text-sm border-r">
+                    {{ trans('cruds.auditLog.fields.subject_type') }}
+                    @include('components.table.sort', ['field' => 'subject_type'])
+                </th>
+                <th class="px-2 py-3 text-sm border-r">
+                    {{ trans('cruds.auditLog.fields.user_id') }}
+                    @include('components.table.sort', ['field' => 'user_id'])
+                </th>
+                <th class="px-2 py-3 text-sm border-r">
+                    {{ trans('cruds.auditLog.fields.host') }}
+                    @include('components.table.sort', ['field' => 'host'])
+                </th>
+                <th class="px-2 py-3 text-sm border-r">
+                    {{ trans('cruds.auditLog.fields.created_at') }}
+                    @include('components.table.sort', ['field' => 'created_at'])
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bodyig">
+            @forelse($auditLogs as $auditLog)
+            <tr>
+                <td class="pl-4 py-2 text-sm border-b">
+                    <input type="checkbox" value="{{ $auditLog->id }}" wire:model="selected">
+                </td>
+                <td class="px-2 py-2 text-sm border-b">
+                    {{ $auditLog->id }}
+                </td>
+                <td class="px-2 py-2 text-sm border-b">
+                    {{ $auditLog->description }}
+                </td>
+                <td class="px-2 py-2 text-sm border-b text-center">
+                    <a href="{{$auditLog->link}}">  
+                        {{ $auditLog->subject_id }}
+                    </a>
+                </td>
+                <td class="px-2 py-2 text-sm border-b">
+                    {{ $auditLog->subject_type }}
+                </td>
+                <td  class="px-2 py-2 text-sm border-b">
+                    {{ $auditLog->user->name }}
+                </td>
+                <td class="px-2 py-2 text-sm border-b">
+                    {{ $auditLog->host }}
+                </td>
+                <td class="px-2 py-2 text-sm border-b">
+                    {{ $auditLog->created_at }}
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="10">No entries found.</td>
+            </tr>
+            @endforelse
+                
+        </tbody>
+    </table>
 </div>
-
-@push('scripts')
-<script>
-    Livewire.on('confirm', e => {
-        if (!confirm("{{ trans('global.areYouSure') }}")) {
-            return
-        }
-        @this[e.callback](...e.argv)
-    })
-</script>
-@endpush

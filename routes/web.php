@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
-use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\AuditLogController;
 
 use App\Http\Controllers\Staff\IncomingController;
 use App\Http\Controllers\Staff\OutgoingController;
@@ -24,10 +24,10 @@ Auth::routes(['register' => false]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+// Audit Logs
+Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']])->middleware('auth');;
 
-    // Audit Logs
-    Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
 
     // Permissions
     Route::resource('permissions', PermissionController::class, ['except' => ['store', 'update', 'destroy']]);

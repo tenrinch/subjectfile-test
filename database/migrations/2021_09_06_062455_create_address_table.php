@@ -15,6 +15,14 @@ class CreateAddressTable extends Migration
     {
         Schema::create('address', function (Blueprint $table) {
             $table->id();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address_line_1')->nullable();
+            $table->string('address_line_2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('pincode')->nullable();
+            $table->unsignedBigInteger('letter_id');
             $table->timestamps();
         });
     }
