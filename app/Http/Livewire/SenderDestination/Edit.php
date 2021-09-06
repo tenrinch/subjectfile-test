@@ -8,10 +8,18 @@ use App\Models\SenderDestination;
 class Edit extends Component
 {   
     public SenderDestination $sender_destination;
+    public $listSenderDestinations;
+    protected $listeners = ['sender_destination_selected' => 'setParent'];
 
     public function mount(SenderDestination $sender_destination)
     {
         $this->sender_destination = $sender_destination;
+        $this->listSenderDestinations = SenderDestination::get()->whereNull('subsenderdestination_of');
+    }
+
+    public function setParent($value)
+    {
+        $this->sender_destination->subsenderdestination_of = $value;
     }
 
     public function update()
@@ -19,6 +27,7 @@ class Edit extends Component
         $this->validate();
         $this->sender_destination->update();
 
+        session()->flash('success', 'Sender/Destination updated!');
         return redirect()->route('staff.sender-destinations.index');
     }
 
@@ -32,6 +41,10 @@ class Edit extends Component
         return [
             'sender_destination.title' => [
                 'string',
+                'required',
+            ],
+            'sender_destination.fixed' => [
+                'integer',
                 'required',
             ]
         ];

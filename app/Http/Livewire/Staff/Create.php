@@ -33,6 +33,7 @@ class Create extends Component
         $role = Role::select('id')->where('title','Staff')->first();
         $this->staff->roles()->sync($role->id);
 
+        session()->flash('success', 'Staff added!');
         return redirect()->route('coordinator.staff.index');
     }
 

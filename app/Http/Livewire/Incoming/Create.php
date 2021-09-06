@@ -12,18 +12,21 @@ use App\Models\SenderDestination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+
 class Create extends Component
 {   
     use WithFileUploads;
 
     public Incoming $incoming;
-
+    
+    public $year,$parent;
     public $files;
-
+    public $sender = [];
     public $listCategories = [];
     public $listSenders = [];
+    public SenderDestination $selected_sender;
 
-    protected $listeners = ['parent_selected' => 'setCategory'];
+    protected $listeners = ['parent_selected' => 'setCategory','sender_destination_selected'=>'setSender'];
 
     public function mount(Incoming $incoming)
     {   
@@ -31,24 +34,35 @@ class Create extends Component
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listSenders = SenderDestination::get()
         ->where('fixed',1)
-        ->pluck('title','id')
-        ->toArray();
+        ->whereNull('subsenderdestination_of');
+        
+        $this->year = date('Y');
+        $this->incoming->incoming_no = Incoming::select('incoming_no')
+            ->where('year',$this->year)->max('incoming_no') + 1;
     }
 
     public function render()
-    {   
-        if(!empty($this->incoming->year))
-        {
-            $this->incoming->incoming_no = Incoming::get()
-                ->where('year',$this->incoming->year)
-                ->max('incoming_no') + 1;
-        }
-        else
-        {
-            $this->incoming->incoming_no = null;
-        }
-
+    {  
         return view('livewire.incoming.create');
+    }
+
+    public function setSender($value)
+    {
+        $this->incoming->sender_id = $value;
+    }
+
+    public function updatedYear($value)
+    {
+        $this->incoming->incoming_no = Incoming::select('incoming_no')
+            ->where('year',$this->year)->max('incoming_no') + 1;
+    }
+
+    public function updatedParent($value)
+    {   
+        if(!empty($value))
+        {
+            $this->selected_sender = SenderDestination::find($value);
+        }
     }
 
     public function setCategory($category)
@@ -58,10 +72,15 @@ class Create extends Component
 
     public function submit()
     {   
-
         $this->validate();
+        if($this->parent === '0')
+        {
+            $sender = SenderDestination::create($this->sender);
+            $this->incoming->sender_id = $sender->id; 
+        }
+        $this->incoming->year = $this->year;
         $this->incoming->save();
-       
+        
         //If file is uploaded
         if($this->files)
         {      
@@ -85,8 +104,11 @@ class Create extends Component
     protected function rules(): array
     {
         return [
-            'incoming.dispatched_no' => [
+            'incoming.letter_no' => [
                 'string',
+            ],
+            'incoming.letter_date' => [
+                'date',
             ],
             'incoming.category_id' => [
                 'integer',
@@ -100,7 +122,6 @@ class Create extends Component
             ],
             'incoming.year' => [
                 'integer',
-                'required',
             ],
             'incoming.incoming_no' => [
                 'integer',
@@ -108,9 +129,8 @@ class Create extends Component
             ],
             'incoming.received_date' => [
                 'date',
-                'required',
             ],
-            'incoming.sender' => [
+            'incoming.sender_id' => [
                 'integer',
             ],
             'incoming.subject' => [
@@ -122,7 +142,9 @@ class Create extends Component
             'incoming.urgency' => [
                 'string',
             ],
-
+            'incoming.remarks' => [
+                'string',
+            ],
         ];
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddModeToOutgoingsTable extends Migration
+class CreateAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddModeToOutgoingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('outgoings', function (Blueprint $table) {
-            $table->string('mode')->nullable();
-            $table->string('urgency')->nullable();
+        Schema::create('address', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +26,6 @@ class AddModeToOutgoingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('outgoings', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('address');
     }
 }

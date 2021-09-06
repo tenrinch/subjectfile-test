@@ -15,5 +15,26 @@ class SenderDestination extends Model
     use HasFactory;
     use Auditable;
 
-    protected $fillable = ['title', 'fixed', 'department_id'];
+
+    protected $table = 'sender_destinations';
+
+    protected $fillable = ['title', 'fixed', 'department_id', 'subsenderdestination_of'];
+
+    public function child()
+    {
+        return $this->hasMany(SenderDestination::class, 'subsenderdestination_of');
+    }
+    public function parent()
+    {
+        return $this->belongsTo(SenderDestination::class, 'subsenderdestination_of');
+    }
+    /*  public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function ($senderdestinationd) { // before delete() method call this
+            Category::where('subsenderdestination_of', $category->id)
+                ->update(['sub_of' => null]);
+        });
+    } */
 }

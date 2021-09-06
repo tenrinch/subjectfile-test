@@ -6,7 +6,7 @@
                 <button type="button" class="btn btn-info btn-sm deselect-all-button">{{ trans('global.deselect_all') }}</button>
             </div>
         @endif
-        <select class="select2 form-control" data-placeholder="{{ __('Select your option') }}" {{ $attributes }}>
+        <select class="p-1 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" data-placeholder="{{ __('Select your option') }}" {{ $attributes }}>
             @if(!isset($attributes['multiple']))
                 <option></option>
             @endif
@@ -20,42 +20,42 @@
 @push('scripts')
     <script>
         document.addEventListener("livewire:load", () => {
-    let el = $('#{{ $attributes['id'] }}')
-    let buttonsId = '#{{ $attributes['id'] }}-btn-container'
+            let el = $('#{{ $attributes['id'] }}')
+            let buttonsId = '#{{ $attributes['id'] }}-btn-container'
 
-    function initButtons() {
-        $(buttonsId + ' .select-all-button').click(function (e) {
-            el.val(_.map(el.find('option'), opt => $(opt).attr('value')))
-            el.trigger('change')
-        })
+            function initButtons() {
+                $(buttonsId + ' .select-all-button').click(function (e) {
+                    el.val(_.map(el.find('option'), opt => $(opt).attr('value')))
+                    el.trigger('change')
+                })
 
-        $(buttonsId + ' .deselect-all-button').click(function (e) {
-            el.val([])
-            el.trigger('change')
-        })
-    }
+                $(buttonsId + ' .deselect-all-button').click(function (e) {
+                    el.val([])
+                    el.trigger('change')
+                })
+            }
 
-    function initSelect () {
-        initButtons()
-        el.select2({
-            placeholder: '{{ __('Select your option') }}',
-            allowClear: !el.attr('required')
-        })
-    }
+            function initSelect () {
+                initButtons()
+                el.select2({
+                    placeholder: '{{ __('Select your option') }}',
+                    allowClear: !el.attr('required')
+                })
+            }
 
-    initSelect()
+            initSelect()
 
-    Livewire.hook('message.processed', (message, component) => {
-        initSelect()
-    });
+            Livewire.hook('message.processed', (message, component) => {
+                initSelect()
+            });
 
-    el.on('change', function (e) {
-        let data = $(this).select2("val")
-        if (data === "") {
-            data = null
-        }
-@this.set('{{ $attributes['wire:model'] }}', data)
-    });
-});
+            el.on('change', function (e) {
+                let data = $(this).select2("val")
+                if (data === "") {
+                    data = null
+                }
+            @this.set('{{ $attributes['wire:model'] }}', data)
+            });
+        });
     </script>
 @endpush

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Department;
 
 use Livewire\Component;
 use App\Models\Department;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -22,6 +23,7 @@ class Create extends Component
     public function submit()
     {   
         $this->validate();
+        $this->department->slug = Str::slug($this->department->title, '-');
         $this->department->save();
 
         session()->flash('success', 'Department added!');

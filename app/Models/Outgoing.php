@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\WithDepartment;
+use Carbon\Carbon;
 
 class Outgoing extends Model
 {
@@ -21,15 +22,16 @@ class Outgoing extends Model
         'file_no',
         'dispatched_no',
         'dispatched_date',
-        'year',
-        'destination',
-        'subject',
-        'status',
+        'year', 
+        'destination_id', 
+        'subject', 
+        'status', 
         'entered_by',
         'department_id',
         'category_id',
         'mode',
-        'urgency'
+        'urgency',
+        'remarks',
     ];
 
     public function medias()
@@ -46,15 +48,25 @@ class Outgoing extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function destination()
+    {
+        return $this->belongsTo(SenderDestination::class,'destination_id')->withDefault([
+            'title' => 'Incorrect Selection!'
+        ]);
+    } 
+
     public function destinations()
     {
-        return $this->belongsTo(SenderDestination::class, 'destination');
-    }
+
+        return $this->belongsToMany(SenderDestination::class,'destination_outgoing','outgoing_id','destination_id');
+    } 
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
-    }
+        return $this->belongsTo(Category::class)->withDefault([
+            'title' => 'Incorrect Selection!'
+        ]);
+    } 
 
     public static function boot()
     {

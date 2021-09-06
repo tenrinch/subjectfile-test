@@ -2,7 +2,6 @@
     <td class="pl-4 py-2 text-sm border">{{$parent_iteration}}.{{$loop->iteration}}</td>
     <td class="px-2 py-2 text-sm border">
         {{$child_category->title}}
-        <p class="text-xs text-gray-500">{{$child_category->parent->title}}</p>
     </td>
     <td class="px-2 py-2 text-sm border text-center">
         <div class="w-full flex flex-row justify-around">

@@ -10,7 +10,8 @@ class ShowParentCategory extends Component
     public $categories = [];
 
     public $parent;
-
+    public $message;
+    
     public Category $category_selected;
 
     public function mount($categories)

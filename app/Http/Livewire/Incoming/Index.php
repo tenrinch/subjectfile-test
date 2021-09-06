@@ -15,7 +15,7 @@ class Index extends Component
 
     public function render()
     {   
-        $incomings = Incoming::paginate(20);
+        $incomings = Incoming::orderBy('incoming_no')->paginate(20);
         return view('livewire.incoming.index',compact('incomings'));
     }
 
@@ -25,6 +25,7 @@ class Index extends Component
         Incoming::findOrFail($this->delete_id)->delete();
         $this->reset('delete_id');
 
+        session()->flash('delete', 'Incoming file deleted!');
         return redirect('staff/incomings');
     }
 }

@@ -19,12 +19,14 @@ class Edit extends Component
 
     public Incoming $incoming;
 
-    public $files;
-
+    public $files,$parent;
+    public $sender = [];
+    public $year,$incoming_no;
     public $listCategories = [];
     public $listSenders = [];
+    public SenderDestination $selected_sender;
 
-    protected $listeners = ['parent_selected' => 'setCategory'];
+    protected $listeners = ['parent_selected' => 'setCategory','sender_destination_selected'=>'setSender'];
 
     public function mount(Incoming $incoming)
     {   
@@ -32,24 +34,40 @@ class Edit extends Component
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listSenders = SenderDestination::get()
         ->where('fixed',1)
-        ->pluck('title','id')
-        ->toArray();
+        ->whereNull('subsenderdestination_of');
+   
+        $this->year = $this->incoming->year;
+        $this->incoming_no = $this->incoming->incoming_no;
     }
 
     public function render()
     {   
-        if(!empty($this->incoming->year))
-        {
-            $this->incoming->incoming_no = Incoming::get()
-                ->where('year',$this->incoming->year)
-                ->max('incoming_no') + 1;
-        }
-        else
-        {
-            $this->incoming->incoming_no = null;
-        }
-
         return view('livewire.incoming.edit');
+    }
+
+    public function setSender($value)
+    {
+        $this->incoming->sender_id = $value;
+    }
+
+    public function updatedParent($value)
+    {   
+        if(!empty($value))
+        {
+            $this->selected_sender = SenderDestination::find($value);
+        }
+    }
+
+    public function updatedYear($value)
+    {
+        if($value == $this->incoming->year)
+        {
+            $this->incoming_no = $this->incoming->incoming_no;
+        }
+        else{
+            $this->incoming_no = Incoming::select('incoming_no')
+            ->where('year',$this->year)->max('incoming_no') + 1;
+        }
     }
 
     public function setCategory($category)
@@ -60,6 +78,18 @@ class Edit extends Component
     public function update()
     {   
         $this->validate(); 
+
+        if($this->parent === '0')
+        {
+            $sender = SenderDestination::create($this->sender);
+            $this->incoming->sender_id = $sender->id; 
+        }
+
+        if($this->incoming->year != $this->year || $this->incoming->incoming_no != $this->incoming_no)
+        {
+            $this->incoming->year = $this->year;
+            $this->incoming->incoming_no = $this->incoming_no;
+        }
         $this->incoming->update();
        
         //If file is uploaded
@@ -77,21 +107,25 @@ class Edit extends Component
             }
         }
 
-        session()->flash('success', 'Incoming file added!');
+        session()->flash('success', 'Incoming file updated!');
         return redirect(url('staff/incomings'));
     }
 
     public function removeFile($media_id)
     {
         Media::find($media_id)->delete();  
+        session()->flash('delete', 'File uploaded removed!');
         return redirect(url('staff/incomings/'.$this->incoming->id.'/edit'));
     }
 
     protected function rules(): array
     {
         return [
-            'incoming.dispatched_no' => [
-                'integer',
+            'incoming.letter_no' => [
+                'string',
+            ],
+            'incoming.letter_date' => [
+                'date',
             ],
             'incoming.category_id' => [
                 'integer',
@@ -115,7 +149,7 @@ class Edit extends Component
                 'date',
                 'required',
             ],
-            'incoming.sender' => [
+            'incoming.sender_id' => [
                 'integer',
             ],
             'incoming.subject' => [
@@ -127,7 +161,9 @@ class Edit extends Component
             'incoming.urgency' => [
                 'string',
             ],
-
+            'incoming.remarks' => [
+                'string',
+            ],
         ];
     }
 }
