@@ -165,6 +165,9 @@ class Edit extends Component
             'incoming.remarks' => [
                 'string',
             ],
+            'incoming.language' => [
+                'string',
+            ],
         ];
     }
 }

@@ -34,6 +34,7 @@ class Outgoing extends Model
         'mode',
         'urgency',
         'remarks',
+        'language',
     ];
 
     public function medias()

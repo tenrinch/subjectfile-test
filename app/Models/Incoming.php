@@ -35,6 +35,7 @@ class Incoming extends Model
         'urgency',
         'category_id',
         'remarks',
+        'language',
     ];
 
     public function medias()

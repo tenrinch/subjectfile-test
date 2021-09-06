@@ -168,8 +168,10 @@ class Edit extends Component
             ],
             'outgoing.remarks' => [
                 'string',
-            ]
-
+            ],
+            'outgoing.language' => [
+                'string',
+            ],
         ];
     }
 }

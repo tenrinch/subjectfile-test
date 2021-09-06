@@ -146,6 +146,9 @@ class Create extends Component
             'incoming.remarks' => [
                 'string',
             ],
+            'incoming.language' => [
+                'string',
+            ],
         ];
     }
 }

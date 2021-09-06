@@ -14,7 +14,7 @@ class AddLanguageToLetterTable extends Migration
     public function up()
     {
         Schema::table('incomings', function (Blueprint $table) {
-            //
+            $table->string('language')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddLanguageToLetterTable extends Migration
     public function down()
     {
         Schema::table('incomings', function (Blueprint $table) {
-            //
+            $table->dropColumn(['language']);
         });
     }
 }

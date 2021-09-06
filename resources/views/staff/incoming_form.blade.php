@@ -133,7 +133,18 @@
             <p class="text-xs text-red-600">{{ $errors->first('incoming.remarks') }}</p>
         </div>
         
-        <div class="col-span-6">
+        <div class="col-span-2">
+            <label for="last-name" class="block text-sm font-medium text-gray-700">Language</label>
+            <select class="p-2 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="incoming.language">
+                <option value="">Select</option>
+                <option>Tibetan</option>
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Others</option>
+            </select>                     
+        </div>
+
+        <div class="col-span-4">
             @if($action == 'create')
                 @include('components.upload-file')
             @else
