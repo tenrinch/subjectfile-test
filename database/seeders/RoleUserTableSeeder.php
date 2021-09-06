@@ -9,10 +9,11 @@ class RoleUserTableSeeder extends Seeder
 {
     public function run()
     {
+        $users = User::all();
+        foreach($users as $user)
+        {
+            $user->roles()->sync([3]);
+        }
         User::findOrFail(1)->roles()->sync([1,2,3]);
-        User::findOrFail(2)->roles()->sync([3]);
-        User::findOrFail(3)->roles()->sync([3]);
-        User::findOrFail(4)->roles()->sync([3]);
-        User::findOrFail(5)->roles()->sync([3]);
     }
 }

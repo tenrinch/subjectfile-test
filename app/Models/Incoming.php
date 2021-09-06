@@ -15,7 +15,7 @@ class Incoming extends Model
     use WithDepartment;
     use HasFactory;
     use Auditable;
-    use SoftDeletes;
+ 
     
     protected $table = 'incomings';
 
