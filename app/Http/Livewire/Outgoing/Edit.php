@@ -69,6 +69,7 @@ class Edit extends Component
         if(!empty($value))
         {
             $this->selected_destination = SenderDestination::find($value);
+            $this->outgoing->destination_id = $value;
         }
     }
 

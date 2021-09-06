@@ -55,6 +55,7 @@ class Edit extends Component
         if(!empty($value))
         {
             $this->selected_sender = SenderDestination::find($value);
+            $this->incoming->sender_id = $value;
         }
     }
 
