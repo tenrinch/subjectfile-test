@@ -37,7 +37,7 @@ class Create extends Component
         $this->sender_destination->save();
 
         session()->flash('success', 'Sender Destination added!');
-        return redirect()->route('staff.sender-destinations.index');
+        return redirect()->route('staff.sender-destinations.create');
     }
 
     protected function rules(): array

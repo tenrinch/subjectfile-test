@@ -1,8 +1,7 @@
 <tr>
-    <td class="pl-4 py-2 text-sm border ">{{$parent_iteration}}.{{$loop->iteration}}</td>
+    <td class="px-2 py-2 text-sm border">{{$parent_iteration}}.{{$loop->iteration}}</td>
     <td class="px-2 py-2 text-sm border">
         {{$child_senderdestination->title}}
-        <p class="text-xs text-gray-500">{{$child_senderdestination->parent->title}}</p>
     </td>
     <td class="px-2 py-2 text-sm border text-center">
         <div class="w-full flex flex-row justify-around">
@@ -16,8 +15,8 @@
     </td>
 </tr>
 @php
-$parent = $parent_iteration.'.'.$loop->iteration;
+    $parent = $parent_iteration.'.'.$loop->iteration;
 @endphp
 @foreach ($child_senderdestination->child as $childSenderDestination)
-@include('livewire.sender-destination.child_senderdestination', ['child_senderdestination' => $childSenderDestination, 'parent_iteration'=>$parent])
+    @include('livewire.sender-destination.child_senderdestination', ['child_senderdestination' => $childSenderDestination, 'parent_iteration'=>$parent])
 @endforeach

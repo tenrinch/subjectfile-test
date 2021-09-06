@@ -18,13 +18,15 @@ class Edit extends Component
 
     public Outgoing $outgoing;
 
-    public $files;
-    public $year,$dispatched_no;
+    public $files, $year, $cc, $parent, $dispatched_no;
+    public $destination = [];
     public $listCategories = [];
     public $listDestinations = [];
+    public $listCC = [];
     public $destinations = [];
+    public SenderDestination $selected_destination;
 
-    protected $listeners = ['parent_selected' => 'setCategory'];
+    protected $listeners = ['parent_selected' => 'setCategory','sender_destination_selected'=>'setDestination'];
 
     public function mount(Outgoing $outgoing)
     {   
@@ -32,11 +34,17 @@ class Edit extends Component
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listDestinations = SenderDestination::get()
         ->where('fixed',1)
+        ->whereNull('subsenderdestination_of')
         ->pluck('title','id')
         ->toArray();
         $this->year = $this->outgoing->year;
         $this->dispatched_no = $this->outgoing->dispatched_no;
         $this->destinations = $this->outgoing->destinations()->pluck('id')->toArray();
+        $this->parent = $this->outgoing->destination_id;
+        if(count($this->outgoing->destinations))
+        {
+            $this->cc = true;
+        }
     }
 
     public function render()
@@ -56,9 +64,22 @@ class Edit extends Component
         }
     }
 
+    public function updatedParent($value)
+    {
+        if(!empty($value))
+        {
+            $this->selected_destination = SenderDestination::find($value);
+        }
+    }
+
     public function setCategory($category)
     {
         $this->outgoing->category_id = $category;
+    }
+
+    public function setDestination($value)
+    {
+        $this->outgoing->destination_id = $value;
     }
 
     public function update()

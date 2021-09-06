@@ -16,6 +16,7 @@ class CreateSenderDestinationsTable extends Migration
         Schema::create('sender_destinations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->integer('subsenderdestination_of')->nullable();
             $table->boolean('fixed')->nullable()->default(null);
             $table->integer('department_id');
             $table->timestamps();

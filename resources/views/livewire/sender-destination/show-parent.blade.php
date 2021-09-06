@@ -1,4 +1,3 @@
-
 <div class="col-span-6">
     <div class="col-span-6 my-2">
         <label for="first-name" class="block text-sm font-medium text-gray-700">

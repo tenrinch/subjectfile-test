@@ -2,7 +2,9 @@
     <div class="shadow sm:rounded-md sm:overflow-hidden bodyig">
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
             <div class="grid grid-cols-6 gap-6">
-                    
+                
+                @livewire('sender-destination.show-parent',['sender_destinations'=>$listSenderDestinations])
+                
                 <div class="md:col-span-6 sm:col-span-6">
                     <label class="block text-sm font-medium text-gray-700">
                        Title

@@ -19,12 +19,14 @@ class Edit extends Component
 
     public Incoming $incoming;
 
-    public $files;
+    public $files,$parent;
+    public $sender = [];
     public $year,$incoming_no;
     public $listCategories = [];
     public $listSenders = [];
+    public SenderDestination $selected_sender;
 
-    protected $listeners = ['parent_selected' => 'setCategory'];
+    protected $listeners = ['parent_selected' => 'setCategory','sender_destination_selected'=>'setSender'];
 
     public function mount(Incoming $incoming)
     {   
@@ -32,8 +34,8 @@ class Edit extends Component
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listSenders = SenderDestination::get()
         ->where('fixed',1)
-        ->pluck('title','id')
-        ->toArray();
+        ->whereNull('subsenderdestination_of');
+   
         $this->year = $this->incoming->year;
         $this->incoming_no = $this->incoming->incoming_no;
     }
@@ -41,6 +43,19 @@ class Edit extends Component
     public function render()
     {   
         return view('livewire.incoming.edit');
+    }
+
+    public function setSender($value)
+    {
+        $this->incoming->sender_id = $value;
+    }
+
+    public function updatedParent($value)
+    {   
+        if(!empty($value))
+        {
+            $this->selected_sender = SenderDestination::find($value);
+        }
     }
 
     public function updatedYear($value)
@@ -63,6 +78,13 @@ class Edit extends Component
     public function update()
     {   
         $this->validate(); 
+
+        if($this->parent === '0')
+        {
+            $sender = SenderDestination::create($this->sender);
+            $this->incoming->sender_id = $sender->id; 
+        }
+
         if($this->incoming->year != $this->year || $this->incoming->incoming_no != $this->incoming_no)
         {
             $this->incoming->year = $this->year;

@@ -18,14 +18,15 @@ class Create extends Component
 
     public Outgoing $outgoing;
 
-    public $files, $year, $cc;
+    public $files, $year, $cc, $parent;
     public $destination = [];
     public $listCategories = [];
     public $listDestinations = [];
     public $listCC = [];
     public $destinations = [];
+    public SenderDestination $selected_destination;
 
-    protected $listeners = ['parent_selected' => 'setCategory'];
+    protected $listeners = ['parent_selected' => 'setCategory','sender_destination_selected'=>'setDestination'];
 
     public function mount(Outgoing $outgoing)
     {   
@@ -34,8 +35,10 @@ class Create extends Component
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listDestinations = SenderDestination::get()
         ->where('fixed',1)
+        ->whereNull('subsenderdestination_of')
         ->pluck('title','id')
         ->toArray();
+        
         $this->year = date('Y'); //Gets current year
         $this->outgoing->dispatched_no = Outgoing::select('dispatched_no')
             ->where('year',$this->year)->max('dispatched_no') + 1;
@@ -51,18 +54,31 @@ class Create extends Component
         $this->outgoing->dispatched_no = Outgoing::select('dispatched_no')
             ->where('year',$this->year)->max('dispatched_no') + 1;
     }
+
+    public function setDestination($value)
+    {
+        $this->outgoing->destination_id = $value;
+    }
     
     public function setCategory($category)
     {
         $this->outgoing->category_id = $category;
     }
 
+    public function updatedParent($value)
+    {
+        if(!empty($value))
+        {
+            $this->selected_destination = SenderDestination::find($value);
+        }
+    }
+
     public function submit()
     {   
-        $this->validate();
         $this->outgoing->year = $this->year;
+        $this->validate();
         
-        if($this->outgoing->destination_id === '0')
+        if($this->parent === '0')
         {
             $destination = SenderDestination::create($this->destination);
             $this->outgoing->destination_id = $destination->id; 

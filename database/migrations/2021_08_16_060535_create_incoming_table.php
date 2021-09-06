@@ -20,7 +20,7 @@ class CreateIncomingTable extends Migration
             $table->string('letter_no')->nullable();
             $table->date('received_date');
             $table->integer('year')->nullable();
-            $table->foreignId('sender_id')->constrained('sender_destinations');
+            $table->integer('sender_id')->nullable();
             $table->mediumText('subject');
             $table->integer('category_id')->nullable();
             $table->enum('status', ['pending', 'closed'])->default('pending');

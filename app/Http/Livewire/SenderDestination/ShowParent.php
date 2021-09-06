@@ -19,7 +19,6 @@ class ShowParent extends Component
         $this->sender_destinations = $sender_destinations->pluck('title', 'id')->toArray();
     }
 
-
     public function render()
     {
         return view('livewire.sender-destination.show-parent');
@@ -27,12 +26,15 @@ class ShowParent extends Component
 
     public function updatedParent($value)
     {
-        if (!empty($value)) {
+        if (!empty($value)) 
+        {
             $this->sender_destinations_selected = SenderDestination::find($value);
-            $this->emitup('sender_destination_selected', $value);
-        } else {
+            $this->emitUp('sender_destination_selected', $value);
+        } 
+        else 
+        {
             if (isset($this->sender_destinations_selected->parent)) {
-                $this->emitUP('sender_destination_selected', $this->sender_destinations_selected->parent->id);
+                $this->emitUp('sender_destination_selected', $this->sender_destinations_selected->parent->id);
             } else {
                 $this->emitUp('sender_destination_selected', null);
             }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubsender extends Migration
+class CreateAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddSubsender extends Migration
      */
     public function up()
     {
-        Schema::table('sender_destinations', function (Blueprint $table) {
-            $table->integer('subsenderdestination_of')->nullable();
+        Schema::create('address', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ class AddSubsender extends Migration
      */
     public function down()
     {
-        Schema::table('sender_destinations', function (Blueprint $table) {
-            $table->dropColumn(['subsenderdestination_of']);
-        });
+        Schema::dropIfExists('address');
     }
 }
