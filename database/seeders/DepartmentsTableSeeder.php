@@ -44,27 +44,52 @@ class DepartmentsTableSeeder extends Seeder
             [
                 'id'    => 6,
                 'title' => 'Religion',
-                'slug' => Str::slug('TCRC', '-'),
+                'slug' => Str::slug('Religion', '-'),
             ],
             [
-                'id'    => 2,
+                'id'    => 7,
                 'title' => 'PSC',
-                'slug' => Str::slug('Kashag', '-'),
+                'slug' => Str::slug('PSC', '-'),
             ],
             [
-                'id'    => 3,
-                'title' => 'TSJC',
-                'slug' => Str::slug('TSJC', '-'),
+                'id'    => 8,
+                'title' => 'Sherig',
+                'slug' => Str::slug('Sherig', '-'),
             ],
             [
-                'id'    => 4,
-                'title' => 'TPiE',
-                'slug' => Str::slug('TPiE', '-'),
+                'id'    => 9,
+                'title' => 'Election',
+                'slug' => Str::slug('Election', '-'),
             ],
             [
-                'id'    => 5,
-                'title' => 'Department of Home',
-                'slug' => Str::slug('Department of Home', '-'),
+                'id'    => 10,
+                'title' => 'DIIR',
+                'slug' => Str::slug('DIIR', '-'),
+            ],
+            [
+                'id'    => 11,
+                'title' => 'Security',
+                'slug' => Str::slug('Security', '-'),
+            ],
+            [
+                'id'    => 12,
+                'title' => 'Health',
+                'slug' => Str::slug('Health', '-'),
+            ],
+            [
+                'id'    => 13,
+                'title' => 'Audit',
+                'slug' => Str::slug('Audit', '-'),
+            ],
+            [
+                'id'    => 14,
+                'title' => 'Finance',
+                'slug' => Str::slug('Finance', '-'),
+            ],
+            [
+                'id'    => 15,
+                'title' => 'TPI',
+                'slug' => Str::slug('TPI', '-'),
             ]
 
         ];

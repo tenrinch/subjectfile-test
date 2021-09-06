@@ -31,6 +31,7 @@ class CreateIncomingTable extends Migration
             $table->foreignId('entered_by')->constrained('users');
             $table->foreignId('department_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
