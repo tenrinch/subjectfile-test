@@ -7,11 +7,11 @@
         <a class="c-sidebar-nav-link" href="{{url('/')}}">
             <i class="cil-home c-sidebar-nav-icon"></i>
             Home
-         </a>
+        </a>
     </li>
 
     <li class="c-sidebar-nav-title">Subject Files</li>
-    @can('incoming_access')  
+    @can('incoming_access')
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{ url('staff/incomings') }}">
             <i class="fas fa-file-import c-sidebar-nav-icon"></i>
@@ -28,8 +28,8 @@
         </a>
     </li>
     @endcan
-    
-    <li class="c-sidebar-nav-title">Settings</li>  
+
+    <li class="c-sidebar-nav-title">Settings</li>
 
     <li class="">
         <a class="c-sidebar-nav-link" href="{{url('staff/categories')}}">
@@ -53,7 +53,7 @@
         </a>
     </li>
     @endcan
-    
+
     @can('staff_manage')
     <li class="">
         <a class="c-sidebar-nav-link" href="{{url('coordinator/staff')}}">
@@ -63,19 +63,29 @@
     </li>
     @endcan
 
+    @can('audit_log_access')
+    <li class="">
+        <a class="c-sidebar-nav-link" href="{{ route("admin.audit-logs.index") }}">
+            <i class="fa-fw c-sidebar-nav-icon fas fa-file-alt">
+            </i>
+            Audit Log
+        </a>
+    </li>
+    @endcan
+
     <li class="">
         <a class="c-sidebar-nav-link" href="{{ route('profile.show') }}">
             <i class="fas fa-user-cog c-sidebar-nav-icon"></i>
             My Profile
         </a>
-    </li> 
+    </li>
 
     <li class="">
         <a class="c-sidebar-nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
             <i class="cil-account-logout c-sidebar-nav-icon"></i>
             Logout
         </a>
-    </li>     
+    </li>
 </ul>
 
 
@@ -83,5 +93,3 @@
 </button>
 
 </div>
-
-                

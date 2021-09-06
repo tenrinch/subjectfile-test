@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -9,9 +10,10 @@ use App\Http\Livewire\WithDepartment;
 use Carbon\Carbon;
 
 class Incoming extends Model
-{   
+{
     use WithDepartment;
     use HasFactory;
+    use Auditable;
 
     protected $table = 'incomings';
 
@@ -35,17 +37,17 @@ class Incoming extends Model
 
     public function medias()
     {
-        return $this->hasMany(Media::class,'file_id');
+        return $this->hasMany(Media::class, 'file_id');
     }
     public function files()
     {
-        return $this->medias()->where('type','incoming');
+        return $this->medias()->where('type', 'incoming');
     }
 
     public function department()
     {
         return $this->belongsTo(Department::class);
-    } 
+    }
 
     public function sender()
     {
@@ -59,22 +61,19 @@ class Incoming extends Model
         return $this->belongsTo(Category::class)->withDefault([
             'title' => 'Incorrect Selection!'
         ]);
-    } 
+    }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        self::deleting(function($doc) 
-        { // before delete() method call this
+        self::deleting(function ($doc) { // before delete() method call this
 
-            if($doc->files){
-                foreach($doc->files as $file)
-                {
+            if ($doc->files) {
+                foreach ($doc->files as $file) {
                     $file->delete();
                 }
-                    
             }
-
         });
     }
 }

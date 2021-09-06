@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\App;
@@ -13,6 +14,7 @@ class Outgoing extends Model
 {
     use WithDepartment;
     use HasFactory;
+    use Auditable;
 
     protected $table = 'outgoings';
 
@@ -34,17 +36,17 @@ class Outgoing extends Model
 
     public function medias()
     {
-        return $this->hasMany(Media::class,'file_id');
+        return $this->hasMany(Media::class, 'file_id');
     }
     public function files()
     {
-        return $this->medias()->where('type','outgoing');
+        return $this->medias()->where('type', 'outgoing');
     }
 
     public function department()
     {
         return $this->belongsTo(Department::class);
-    } 
+    }
 
     public function destination()
     {
@@ -55,6 +57,7 @@ class Outgoing extends Model
 
     public function destinations()
     {
+
         return $this->belongsToMany(SenderDestination::class,'destination_outgoing','outgoing_id','destination_id');
     } 
 
@@ -65,21 +68,17 @@ class Outgoing extends Model
         ]);
     } 
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        self::deleting(function($doc) 
-        { // before delete() method call this
+        self::deleting(function ($doc) { // before delete() method call this
 
-            if($doc->files){
-                foreach($doc->files as $file)
-                {
+            if ($doc->files) {
+                foreach ($doc->files as $file) {
                     $file->delete();
                 }
-                    
             }
-
         });
     }
-
 }
