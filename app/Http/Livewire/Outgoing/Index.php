@@ -27,7 +27,7 @@ class Index extends Component
 
     public $lists = [];
 
-    public $sender, $file;
+    public $sender, $file, $year;
 
     public array $paginationOptions;
 
@@ -88,6 +88,9 @@ class Index extends Component
             })
             ->when(!empty($this->file), function ($q){
                 $q->where('file_no', $this->file);
+            })
+            ->when(!empty($this->year), function ($q){
+                $q->where('year', $this->year);
             })
             ->paginate($this->perPage);
         return view('livewire.outgoing.index',compact('query','outgoings'));

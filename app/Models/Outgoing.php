@@ -32,12 +32,7 @@ class Outgoing extends Model
     ];
 
     public $filterable = [
-        'dispatched_no',
-        'dispatched_date',
-        'file_no',
-        'destination_id',
-        'status',
-        'created_at',
+        'subject'
     ];
 
 
