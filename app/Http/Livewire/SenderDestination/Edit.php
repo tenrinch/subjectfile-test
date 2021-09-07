@@ -14,11 +14,13 @@ class Edit extends Component
     public function mount(SenderDestination $sender_destination)
     {
         $this->sender_destination = $sender_destination;
-        $this->listSenderDestinations = SenderDestination::get()->whereNull('subsenderdestination_of');
+        $this->listSenderDestinations = SenderDestination::get()
+        ->whereNull('subsenderdestination_of')
+        ->where('fixed','1');
     }
 
     public function setParent($value)
-    {
+    {   
         $this->sender_destination->subsenderdestination_of = $value;
     }
 
@@ -46,6 +48,9 @@ class Edit extends Component
             'sender_destination.fixed' => [
                 'integer',
                 'required',
+            ],
+            'sender_destination.subsenderdestination_of' => [
+                'integer',
             ]
         ];
     }

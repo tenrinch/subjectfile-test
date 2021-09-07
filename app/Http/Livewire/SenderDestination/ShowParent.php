@@ -25,7 +25,7 @@ class ShowParent extends Component
     }
 
     public function updatedParent($value)
-    {
+    {   
         if (!empty($value)) 
         {
             $this->sender_destinations_selected = SenderDestination::find($value);

@@ -15,7 +15,6 @@ class SenderDestination extends Model
     use HasFactory;
     use Auditable;
 
-
     protected $table = 'sender_destinations';
 
     protected $fillable = ['title', 'fixed', 'department_id', 'subsenderdestination_of'];
