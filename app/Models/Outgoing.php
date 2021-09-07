@@ -9,6 +9,7 @@ use App\Models\App;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\WithDepartment;
 use Carbon\Carbon;
+use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Outgoing extends Model
@@ -17,8 +18,28 @@ class Outgoing extends Model
     use HasFactory;
     use Auditable;
     use SoftDeletes;
+    use HasAdvancedFilter;
     
     protected $table = 'outgoings';
+
+    public $orderable = [
+        'dispatched_no',
+        'dispatched_date',
+        'file_no',
+        'destination_id',
+        'status',
+        'created_at',
+    ];
+
+    public $filterable = [
+        'dispatched_no',
+        'dispatched_date',
+        'file_no',
+        'destination_id',
+        'status',
+        'created_at',
+    ];
+
 
     protected $fillable = [
         'file_no',

@@ -26,7 +26,7 @@ class CategoryFactory extends Factory
         return [
             'title'          => Str::random(10),
             'subcategory_of' => null,
-            'department_id'  => rand(2,5),
+            'department_id'  => 1,
         ];
     }
 }

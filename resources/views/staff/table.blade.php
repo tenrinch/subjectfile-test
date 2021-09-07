@@ -1,13 +1,62 @@
+ <div class=" flex flex-row">
+    <select wire:model="perPage" class="appearance-none h-full border-l rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none  bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
+    @foreach($paginationOptions as $value)
+    <option value="{{ $value }}">{{ $value }}</option>
+    @endforeach
+    </select>
+
+    <select class="appearance-none h-full border-l rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-1/5 bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500" wire:model.debounce.300ms="sender">
+        <option value=''>All Senders</option>
+        @foreach($lists['senderdestinations'] as $key => $value)
+        <option value="{{$key}}">{{$value}}</option>
+        @endforeach
+    </select>
+
+    <select
+        class="appearance-none h-full border-l rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-1/5 bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500" wire:model.debounce.300ms="file">
+        <option value=''>All Files</option>
+        @foreach($lists['files'] as $value)
+        <option>{{$value}}</option>
+        @endforeach
+    </select>
+
+    <input placeholder="Search" class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-3 py-1 w-1/4 bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"  wire:model.debounce.300ms="search"/>
+</div>
+
 <table class="w-full bg-white mt-3 mb-2 bodyig">
     <thead>
         <tr class="text-md uppercase font-semibold text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
-
-            <td class="px-2 py-3 text-center">ཨང།</td>
-            <td class="px-2 py-3">{{ $letter == 'incomings' ? 'འབྱོར་ཚེས།' : 'གཏོང་ཚེས།' }}</td>
-            <td class="px-2 py-3">{{ $letter == 'incomings' ? 'གཏོང་མཁན།' : 'གཏོང་ཡུལ།' }}</td>
+            <td class="px-2 py-3 text-center">  ཨང། 
+                @if($letter == 'incomings')
+                    @include('components.table.sort', ['field' => 'incoming_no'])
+                @else
+                    @include('components.table.sort', ['field' => 'dispatched_no'])
+                @endif
+            </td>
+            <td class="px-2 py-3">
+                {{ $letter == 'incomings' ? 'འབྱོར་ཚེས།' : 'གཏོང་ཚེས།' }}
+                @if($letter == 'incomings')
+                @include('components.table.sort', ['field' => 'received_date'])
+                @else
+                    @include('components.table.sort', ['field' => 'dispatched_date'])
+                @endif
+            </td>
+            <td class="px-2 py-3">
+                {{ $letter == 'incomings' ? 'གཏོང་མཁན།' : 'གཏོང་ཡུལ།' }}
+                @if($letter == 'incomings')
+                    @include('components.table.sort', ['field' => 'sender_id'])
+                @else
+                    @include('components.table.sort', ['field' => 'destination_id'])
+                @endif
+            </td>
             <td class="px-2 py-3">གནད་དོན།</td>
-            <td class="px-2 py-3">ཡིག་སྣོད་ཨང།</td>
-            <td class="px-2 py-3">Status</td>
+            <td class="px-2 py-3">
+                ཡིག་སྣོད་ཨང།
+                @include('components.table.sort', ['field' => 'file_no'])
+            </td>
+            <td class="px-2 py-3"> Status
+                @include('components.table.sort', ['field' => 'status'])
+            </td>
             <td class="px-2 py-3 text-center"><i class="far fa-images"></i></td>
             <td class="px-2 py-3"></td>
 

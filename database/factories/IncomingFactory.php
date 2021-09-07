@@ -26,10 +26,9 @@ class IncomingFactory extends Factory
      */
     public function definition()
     {   
-        $user = rand(2,5);
-        $sender = DB::table('sender_destinations')->where('department_id',$user)->pluck('id')->toArray();
+        $sender = DB::table('sender_destinations')->where('department_id',1)->pluck('id')->toArray();
         $index = array_rand($sender);
-        $category = DB::table('category')->where('department_id',$user)->pluck('id')->toArray();
+        $category = DB::table('category')->where('department_id',1)->pluck('id')->toArray();
         $i = array_rand($category);
 
         return [
@@ -39,11 +38,11 @@ class IncomingFactory extends Factory
             'received_date'     =>date_create(rand(2000,2021)."-".rand(1,12)."-".rand(1,30)),
             'year'              =>rand(2000,2021),
             'letter_date'       =>date_create(rand(2000,2021)."-".rand(1,12)."-".rand(1,30)),
-            'sender_id'            =>$sender[$index],
+            'sender_id'         =>$sender[$index],
             'subject'           =>Str::random(40),
             'status'            =>'Pending',
-            'entered_by'        =>$user,
-            'department_id'     =>$user,
+            'entered_by'        =>1,
+            'department_id'     =>1,
             'mode'              =>'Post',
             'urgency'           =>'Urgent',
             'remarks'           =>Str::random(4).Str::random(12).Str::random(8).Str::random(4).Str::random(10),

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\WithDepartment;
 use Carbon\Carbon;
+use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incoming extends Model
@@ -15,9 +16,23 @@ class Incoming extends Model
     use WithDepartment;
     use HasFactory;
     use Auditable;
- 
+    use HasAdvancedFilter;
     
     protected $table = 'incomings';
+
+    public $orderable = [
+        'incoming_no',
+        'received_date',
+        'file_no',
+        'sender_id',
+        'status',
+        'created_at',
+    ];
+
+    public $filterable = [
+        'subject',
+        'sender_id',
+    ];
 
     protected $fillable = [
         'incoming_no',

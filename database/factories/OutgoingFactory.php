@@ -23,7 +23,7 @@ class OutgoingFactory extends Factory
      */
     public function definition()
     {   
-        $user = rand(2,5);
+        $user = 1;
         $destination = DB::table('sender_destinations')->where('department_id',$user)->pluck('id')->toArray();
         $index = array_rand($destination);
         $category = DB::table('category')->where('department_id',$user)->pluck('id')->toArray();

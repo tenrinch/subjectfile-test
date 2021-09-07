@@ -7,17 +7,90 @@ use App\Models\Outgoing;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
 use Livewire\WithPagination;
+use App\Http\Livewire\WithSorting;
+use App\Models\SenderDestination;
 
 class Index extends Component
 {
     use WithPagination;
+    use WithSorting;
 
     public $delete_id;
 
+    public int $perPage;
+
+    public array $orderable;
+
+    public string $search = '';
+
+    public array $selected = [];
+
+    public $lists = [];
+
+    public $sender, $file;
+
+    public array $paginationOptions;
+
+    protected $queryString = [
+        'search' => [
+            'except' => '',
+        ],
+        'sortBy' => [
+            'except' => 'dispatched_no',
+        ],
+        'sortDirection' => [
+            'except' => 'desc',
+        ],
+    ];
+
+    public function getSelectedCountProperty()
+    {
+        return count($this->selected);
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function resetSelected()
+    {
+        $this->selected = [];
+    }
+
+    public function mount()
+    {
+        $this->sortBy            = 'dispatched_no';
+        $this->sortDirection     = 'desc';
+        $this->perPage           = 20;
+        $this->paginationOptions = config('project.pagination.options');
+        $this->orderable         = (new Outgoing())->orderable;
+        $this->lists['senderdestinations']  = SenderDestination::pluck('title','id')->toArray();
+        $this->lists['files']    = Outgoing::pluck('file_no')->toArray();
+    }
+
+
     public function render()
     {   
-        $outgoings = Outgoing::orderBy('dispatched_no')->paginate(20);
-        return view('livewire.outgoing.index',compact('outgoings'));
+        $query = Outgoing::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ]);
+
+        $outgoings = $query->when(!empty($this->sender), function ($q){
+                $q->where('destination_id', $this->sender);
+            })
+            ->when(!empty($this->file), function ($q){
+                $q->where('file_no', $this->file);
+            })
+            ->paginate($this->perPage);
+        return view('livewire.outgoing.index',compact('query','outgoings'));
     }
 
     public function delete()
