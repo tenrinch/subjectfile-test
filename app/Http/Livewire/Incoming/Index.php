@@ -67,7 +67,7 @@ class Index extends Component
     {
         $this->sortBy            = 'incoming_no';
         $this->sortDirection     = 'desc';
-        $this->perPage           = 20;
+        $this->perPage           = 10;
         $this->paginationOptions = config('project.pagination.options');
         $this->orderable         = (new Incoming())->orderable;
         $this->lists['senderdestinations']  = SenderDestination::pluck('title','id')->toArray();
