@@ -113,7 +113,7 @@ class Edit extends Component
                 $media = [];
                 $media['type']      = 'outgoing';
                 $media['name']      = $file_name;
-                $media['path']      = $file->storeAs(Auth::user()->department->slug.'/outgoings',Str::slug($file_name, '-'));
+                $media['path']      = $file->store(Auth::user()->department->slug.'/outgoings/'.date('Y').'/'.date('m'));
 
                 $this->outgoing->medias()->create($media);
             }

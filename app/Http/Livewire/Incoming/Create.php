@@ -92,7 +92,7 @@ class Create extends Component
                 $media = [];
                 $media['type']      = 'incoming';
                 $media['name']      = $file_name;
-                $media['path']      = $file->storeAs(Auth::user()->department->slug.'/incomings',Str::slug($file_name, '-'));
+                $media['path']      = $file->store(Auth::user()->department->slug.'/incomings/'.date('Y').'/'.date('m'));
 
                 $this->incoming->medias()->create($media);
             }
