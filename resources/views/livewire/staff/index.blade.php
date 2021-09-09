@@ -15,20 +15,22 @@
         <table class="w-full text-sm bg-white mt-3">
             <thead>
                 <tr class="uppercase font-semibold text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
-                    <td class="px-2 py-3 text-xs border-r text-center">#</td>
-                    <td class="px-2 py-3 text-xs border-r">Name</td>
-                    <td class="px-2 py-3 text-xs border-r">Email</td>
-                    <td class="px-2 py-3 text-xs border-r">Last Login</td>
-                    <td class="px-2 py-3 text-xs border-r"></td>
+                    <td class="px-2 py-3  border-r text-center">#</td>
+                    <td class="px-2 py-3  border-r">Name</td>
+                    <td class="px-2 py-3  border-r">Email</td>
+                    <td class="px-2 py-3  border-r">Section</td>
+                    <td class="px-2 py-3  border-r">Last Login</td>
+                    <td class="px-2 py-3  border-r"></td>
                 </tr>
             </thead>
             <tbody>
                 @foreach($staffs as $staff)
                 <tr>
-                    <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$staff->name}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$staff->email}}</td>
-                    <td class="px-2 py-1 text-xs border"></td>
+                    <td class="px-2 py-1  border text-center">{{$loop->iteration}}</td>
+                    <td class="px-2 py-1  border">{{$staff->name}}</td>
+                    <td class="px-2 py-1  border">{{$staff->email}}</td>
+                    <td class="px-2 py-1  border">{{$staff->department->title}}</td>
+                    <td class="px-2 py-1  border"></td>
                     <td class="px-2 py-1 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
                             @can('staff_edit')

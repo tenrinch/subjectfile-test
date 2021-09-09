@@ -10,12 +10,12 @@ use App\Models\Category;
 use App\Models\Department;
 use App\Models\SenderDestination;
 use Illuminate\Support\Facades\Auth;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use App\Traits\FileUpload;
 
 class Create extends Component
 {   
-    use WithFileUploads;
+    use FileUpload;
 
     public Incoming $incoming;
     
@@ -81,21 +81,11 @@ class Create extends Component
         }
         $this->incoming->year = $this->year;
         $this->incoming->save();
-        
+    
         //If file is uploaded
         if($this->files)
-        {      
-            foreach($this->files as $file) 
-            {
-
-                $file_name = $file->getClientOriginalName();
-                $media = [];
-                $media['type']      = 'incoming';
-                $media['name']      = $file_name;
-                $media['path']      = $file->store(Auth::user()->department->slug.'/incomings/'.date('Y').'/'.date('m'));
-
-                $this->incoming->medias()->create($media);
-            }
+        {   
+            $this->uploads($this->files,$this->incoming,'incoming');
         }
 
         session()->flash('success', 'Incoming file added!');

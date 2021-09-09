@@ -23,17 +23,20 @@ class IncomingController extends Controller
         return view('staff.incoming.create');
     }
 
-    public function show(Incoming $incoming)
+    public function show($id)
     {   
         abort_if(Gate::denies('incoming_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($incoming->department_id != Auth::user()->department_id, Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $incoming = Incoming::get()->find($id);
+        abort_if(!isset($incoming), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('staff.incoming.show',compact('incoming'));
     }
 
-    public function edit(Incoming $incoming)
+    public function edit($id)
     {   
         abort_if(Gate::denies('incoming_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($incoming->department_id != Auth::user()->department_id, Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $incoming = Incoming::get()->find($id);
+        abort_if(!isset($incoming), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         return view('staff.incoming.edit',compact('incoming'));
     }
 }

@@ -17,8 +17,18 @@ trait WithDepartment {
                 $model->department_id = auth()->user()->department_id;
             });
 
-            static::addGlobalScope('department_id', function (Builder $builder) {
-                $builder->where('department_id', auth()->user()->department_id);
+            static::addGlobalScope('department_id', function (Builder $builder){
+
+                if(auth()->user()->roles()->whereIn('title', ['Admin','Coordinator'])->exists())
+                {
+                    $depts = auth()->user()->department->sections()->pluck('id')->toArray();
+                    array_push($depts,auth()->user()->department_id);
+                    $builder->whereIn('department_id', $depts);
+                }
+                else
+                {
+                    $builder->where('department_id',auth()->user()->department_id);
+                }
             });
         }
     }

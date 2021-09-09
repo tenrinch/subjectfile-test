@@ -18,7 +18,29 @@
                     <input type="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="staff.email" required>
                     <p class="text-xs text-red-600 italic">{{ $errors->first('staff.email') }}</p>
                 </div>
-
+                
+                <div class="md:col-span-6 sm:col-span-6">
+                    <label class="block text-sm font-medium text-gray-700">
+                       Section
+                    </label>
+                    <select name="first-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2" wire:model.debounce.250ms="selectSection">
+                        <option value=''>Select</option>
+                        <option value='0'>Enter New Section</option>
+                        @foreach($listSections as $key=>$value)
+                        <option value={{$key}}>{{$value}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @if($this->selectSection==='0')
+                <div class="md:col-span-6 sm:col-span-6">
+                    <label class="block text-sm font-medium text-gray-700">
+                       New Section
+                    </label>
+                    <input type="text" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" wire:model.defer="section">
+                    <p class="text-xs text-red-600 italic">{{ $errors->first('section') }}</p>
+                </div>
+                @endif
+               
                 <div class="md:col-span-6 sm:col-span-6">
                     <label class="block text-sm font-medium text-gray-700">
                        Password

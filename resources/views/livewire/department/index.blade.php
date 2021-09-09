@@ -13,16 +13,18 @@
         <table class="w-full text-sm bg-white mt-3">
             <thead>
                 <tr class="uppercase font-semibold text-left text-gray-900 bg-gray-200 border-t border-b border-gray-600">
-                    <td class="px-2 py-3 text-xs border-r text-center">#</td>
-                    <td class="px-2 py-3 text-xs border-r">Dispatched No</td>
-                    <td class="px-2 py-3 text-xs border-r"></td>
+                    <td class="px-2 py-3  border-r text-center">#</td>
+                    <td class="px-2 py-3  border-r">Title</td>
+                    <td class="px-2 py-3  border-r">Section Of</td>
+                    <td class="px-2 py-3  border-r"></td>
                 </tr>
             </thead>
             <tbody>
                 @foreach($departments as $department)
                 <tr>
-                    <td class="px-2 py-1 text-xs border text-center">{{$loop->iteration}}</td>
-                    <td class="px-2 py-1 text-xs border">{{$department->title}}</td>
+                    <td class="px-2 py-1  border text-center">{{$loop->iteration}}</td>
+                    <td class="px-2 py-1  border">{{$department->title}}</td>
+                    <td class="px-2 py-1  border">{{$department->parent->title ?? ''}}</td>
                     <td class="px-2 py-1 text-xs border text-center">
                         <div class="w-full flex flex-row justify-around">
                             <a href="{{'departments'}}/{{$department->id}}/edit">

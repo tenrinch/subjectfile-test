@@ -6,7 +6,7 @@
                 <i class="fas fa-search"></i>
                 </span>
             </div>
-            <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 pr-4 sm:text-sm border-gray-300 rounded-md py-2 md:text-lg py-2" placeholder="ཨང། / གནད་དོན། / ཟུར་བརྗོད།" wire:model.defer = "subject">
+            <input type="text" name="price" id="price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 pr-4 sm:text-sm border-gray-300 rounded-md py-2 md:text-lg py-2" placeholder="   " wire:model.defer = "subject">
             <div class="absolute inset-y-0 right-0 flex items-center ">
             
                 <select id="Currency" name="currency" class="focus:ring-indigo-500 py-2 border-t border-gray-300 border-b bo focus:border-indigo-500 h-full pl-4 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm mg:text-lg" wire:model.debounce.250ms = "type">

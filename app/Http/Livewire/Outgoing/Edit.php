@@ -8,13 +8,13 @@ use App\Models\Media;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SenderDestination;
-use Livewire\WithFileUploads;
+use App\Traits\FileUpload;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
 class Edit extends Component
 {
-    use WithFileUploads;
+    use FileUpload;
 
     public Outgoing $outgoing;
 
@@ -107,16 +107,7 @@ class Edit extends Component
         //If file is uploaded
         if($this->files)
         {      
-            foreach($this->files as $file) 
-            {   
-                $file_name = $file->getClientOriginalName();
-                $media = [];
-                $media['type']      = 'outgoing';
-                $media['name']      = $file_name;
-                $media['path']      = $file->store(Auth::user()->department->slug.'/outgoings/'.date('Y').'/'.date('m'));
-
-                $this->outgoing->medias()->create($media);
-            }
+            $this->uploads($this->files,$this->outgoing,'outgoing');
         }
 
         session()->flash('success', 'Outgoing file updated!');

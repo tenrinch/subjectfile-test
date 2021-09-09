@@ -23,14 +23,10 @@ class StaffController extends Controller
         return view('coordinator.staff.create');
     }
 
-    public function edit(User $staff)
+    public function edit($id)
     {   
         abort_if(Gate::denies('staff_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($staff->department_id != Auth::user()->department_id, Response::HTTP_FORBIDDEN, '403 Forbidden');
-        if($staff->id == Auth::id())
-        {
-            return redirect('profile');
-        }
+        $staff = User::listStaff()->find($id);
         return view('coordinator.staff.edit',compact('staff'));
     }
 }

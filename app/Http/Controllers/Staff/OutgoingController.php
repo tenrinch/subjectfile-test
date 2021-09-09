@@ -22,17 +22,19 @@ class OutgoingController extends Controller
         return view('staff.outgoing.create');
     }
 
-    public function show(Outgoing $outgoing)
+    public function show($id)
     {   
         abort_if(Gate::denies('outgoing_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($outgoing->department_id != Auth::user()->department_id, 403);
+        $outgoing = Outgoing::get()->find($id);
+        abort_if(!isset($outgoing), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('staff.outgoing.show',compact('outgoing'));
     }
     
-    public function edit(Outgoing $outgoing)
+    public function edit($id)
     {   
         abort_if(Gate::denies('outgoing_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if($outgoing->department_id != Auth::user()->department_id, 403);
+        $outgoing = Outgoing::get()->find($id);
+        abort_if(!isset($outgoing), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('staff.outgoing.edit',compact('outgoing'));
     }
 }

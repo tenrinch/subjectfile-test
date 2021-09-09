@@ -11,6 +11,8 @@ class UpdateProfile extends Component
     use AuthorizesRequests;
 
     public User $staff;
+    public $selectSection, $section, $department;
+    public $listSections = [];
 
     protected $validationAttributes = [
         'staff.name'  => 'name',
@@ -19,7 +21,21 @@ class UpdateProfile extends Component
 
     public function mount(User $staff)
     {   
+        $this->department = auth()->user()->department;
+        $this->section = null;
+        $this->listSections = $this->department
+            ->sections()
+            ->pluck('title','id')
+            ->toArray();
         $this->staff = $staff->withoutRelations();
+    }
+
+    public function updatedSelectSection($value)
+    {
+        if(!empty($value) AND $value!='0')
+        {
+            $this->section = $value;
+        }
     }
 
     public function updateProfile()
@@ -27,6 +43,20 @@ class UpdateProfile extends Component
         $this->authorize('staff_edit');
 
         $this->resetErrorBag();
+
+        if($this->section)
+        {
+            if($this->selectSection == 0)
+            {
+                $this->staff->department_id = $this->department
+                ->sections()
+                ->create(['title'=>$this->section,'slug'=>Str::slug($this->section, '-')])->id;
+            }
+            else
+            { 
+                $this->staff->department_id = $this->section;
+            }
+        }
 
         $this->validate();
 
