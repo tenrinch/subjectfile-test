@@ -9,7 +9,6 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SenderDestination;
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use App\Traits\FileUpload;
 
 class Create extends Component
@@ -42,6 +41,7 @@ class Create extends Component
         $this->year = date('Y'); //Gets current year
         $this->outgoing->dispatched_no = Outgoing::select('dispatched_no')
             ->where('year',$this->year)->max('dispatched_no') + 1;
+        $this->destination['fixed'] = null;
     }
 
     public function render()

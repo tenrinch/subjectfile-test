@@ -1,4 +1,4 @@
-<div x-data="{ advance_filter: false }">
+<div x-data="{ advance_filter: false }" class="mb-2">
     <div class="flex bodyig mx-auto items-end justify-center">
         <div class="relative rounded-md shadow-sm w-10/12">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -65,7 +65,7 @@
                 <option>Not Urgent</option>
             </select>
 
-            <select class="block w-1/6 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals" wire:model.defer="filter.language">
+            <select class="block w-1/6 text-gray-700 py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals" wire:model.defer="filter.language">
                 <option value="">Language</option>
                 <option>Tibetan</option>
                 <option>English</option>
@@ -79,26 +79,29 @@
             <div class="w-5/12">
                 <label class="font-semibold">Received/Dispatched Date</label>
                 <div class="flex flex-row w-full space-x-1">
-                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/2 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="date.date_from"/>
-                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/2 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="date.date_to"/>
+                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/2 py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="date.date_from"/>
+
+                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/2 py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="date.date_to"/>
                 </div>
             </div>
 
             <div class="w-7/12">
                 <label class="font-semibold">Letter Info</label>
                 <div class="flex flex-row w-full space-x-1">
-                    <input type="text" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/3 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Letter no.." wire:model.defer="letter.letter_no"/>
+                    <input type="text" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/3 py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Letter no.." wire:model.defer="letter.letter_no"/>
 
-                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/3 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="letter.letter_from"/>
+                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/3 py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="letter.letter_from"/>
 
-                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/3 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="letter.letter_to"/>
+                    <input type="date" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-1/3 py-1 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" wire:model.defer="letter.letter_to"/>
                 </div>
             </div>
         </div>
     </div>
 
     @if(isset($records))
-    @include('staff.table', ['records' => $records,'letter'=>$type])
+        @include('staff.table', ['records' => $records,'letter'=>$type])
+
+        @include('livewire.delete-modal')
     @endif
 
 </div>

@@ -66,71 +66,17 @@ class Search extends Component
     {   
         if($this->search_flag)
         {
-             if($this->type == 'incomings')  
-            {
-                $query = Incoming::advancedFilter([
-                    's'               => $this->search ?: null,
-                    'order_column'    => $this->sortBy,
-                    'order_direction' => $this->sortDirection,
-                ]);
-            }     
-            else
-            {
-                $query = Outgoing::advancedFilter([
-                    's'               => $this->search ?: null,
-                    'order_column'    => $this->sortBy,
-                    'order_direction' => $this->sortDirection,
-                ]);
-            }
             
-            foreach($this->filter as $key => $value)
-            {   
-                if(!empty($value))
-                {   
-                    if($key == 'file_no')
-                    {
-                        $query =  $query->where($key,'LIKE','%'.$value.'%');
-                    }
-                    else{
-                        $query =  $query->where($key,$value);
-                    }
-                }
-            }
+            $query = $this->search();
 
-            foreach($this->date as $key => $value)
-            {   
-                $field = $this->type == 'incomings' ? 'received_date' : 'dispatched_date';
-                if($key == 'date_from')
+            $records = $query->when(!empty($this->subject), function ($q)
                 {
-                    $query =  $query->where( $field,'>=',$value);
-                }
-                elseif($key=='date_to')
-                {
-                    $query =  $query->where($field,'<=',$value);
-                }
-            }
-
-            foreach($this->letter as $key => $value)
-            {   
-                if($key == 'letter_no')
-                {
-                    $query =  $query->where($key,'%'.$value.'%');
-                }
-                elseif($key == 'letter_from')
-                {
-                    $query =  $query->where('letter_date','>=',$value);
-                }
-                elseif($key == 'letter_to')
-                {
-                    $query =  $query->where('letter_date','<=',$value);
-                }   
-            }
-            $records = $query->when(!empty($this->subject), function ($q){
                     $q->where($this->type == 'incomings' ? 'incoming_no' : 'dispatched_no', $this->subject)
                     ->orWhere('subject','LIKE','%'.$this->subject.'%')
                     ->orWhere('remarks','LIKE','%'.$this->subject.'%');
                 })
                 ->paginate($this->perPage);
+
             return view('livewire.search',compact('records','query'));
         }
         else
@@ -152,6 +98,89 @@ class Search extends Component
     public function resetField()
     {
         $this->reset('filter','letter','date','subject','search_flag');
+    }
+
+    //Delete logic
+    public function delete()
+    {   
+        abort_if(Gate::denies(['incoming_delete','outgoing_delete']), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if($this->type === 'incomings')
+        {
+            Incoming::get()->find($this->delete_id)->delete();
+        }
+        else
+        {
+            Outgoing::get()->find($this->delete_id)->delete();
+        }
+        $this->reset('delete_id');
+
+        session()->flash('delete', 'File deleted!');
+        return redirect('/');
+    }
+
+    //Search logic
+     public function search()
+    {
+        if($this->type == 'incomings')  
+        {
+            $query = Incoming::advancedFilter([
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
+                'order_direction' => $this->sortDirection,
+            ]);
+        }     
+        else
+        {
+            $query = Outgoing::advancedFilter([
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
+                'order_direction' => $this->sortDirection,
+            ]);
+        }
+        
+        foreach($this->filter as $key => $value)
+        {   
+            if(!empty($value))
+            {   
+                if($key == 'file_no')
+                {
+                    $query =  $query->where($key,'LIKE','%'.$value.'%');
+                }
+                else{
+                    $query =  $query->where($key,$value);
+                }
+            }
+        }
+
+        foreach($this->date as $key => $value)
+        {   
+            $field = $this->type == 'incomings' ? 'received_date' : 'dispatched_date';
+            if($key == 'date_from')
+            {
+                $query =  $query->where( $field,'>=',$value);
+            }
+            elseif($key=='date_to')
+            {
+                $query =  $query->where($field,'<=',$value);
+            }
+        }
+
+        foreach($this->letter as $key => $value)
+        {   
+            if($key == 'letter_no')
+            {
+                $query =  $query->where($key,'%'.$value.'%');
+            }
+            elseif($key == 'letter_from')
+            {
+                $query =  $query->where('letter_date','>=',$value);
+            }
+            elseif($key == 'letter_to')
+            {
+                $query =  $query->where('letter_date','<=',$value);
+            }   
+        }
+        return $query;
     }
 
 }
