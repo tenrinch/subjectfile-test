@@ -29,6 +29,13 @@
     </li>
     @endcan
 
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url('staff/files') }}">
+            <i class="far fa-folder-open c-sidebar-nav-icon"></i>
+            Files
+        </a>
+    </li>
+
     <li class="c-sidebar-nav-title">Settings</li>
 
     <li class="">

@@ -139,6 +139,9 @@ class Create extends Component
             'incoming.language' => [
                 'string',
             ],
+            'incoming.department_id' => [
+                'integer',
+            ],
         ];
     }
 }

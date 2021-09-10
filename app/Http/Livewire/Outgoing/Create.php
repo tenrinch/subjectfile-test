@@ -146,6 +146,9 @@ class Create extends Component
             'outgoing.language' => [
                 'string',
             ],
+            'outgoing.department_id' => [
+                'integer',
+            ],
         ];
     }
 }

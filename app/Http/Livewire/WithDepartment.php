@@ -13,8 +13,11 @@ trait WithDepartment {
                 {
                     $model->entered_by = auth()->id();
                 }
+                if(empty($model->department_id))
+                {
+                    $model->department_id = auth()->user()->department_id;
+                }
                 
-                $model->department_id = auth()->user()->department_id;
             });
 
             static::addGlobalScope('department_id', function (Builder $builder){

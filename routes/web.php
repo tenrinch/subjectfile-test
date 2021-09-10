@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\AuditLogController;
 
+use App\Http\Controllers\Staff\FileController;
 use App\Http\Controllers\Staff\IncomingController;
 use App\Http\Controllers\Staff\OutgoingController;
 use App\Http\Controllers\Staff\CategoryController;
@@ -44,8 +45,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
 
 Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => ['auth', 'staff']], function () {
 
-    //SenderDestination
-    Route::resource('sender-destinations', SenderDestinationController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
+    //Files
+    Route::resource('files', FileController::class, ['except' => ['store', 'update', 'destroy']]);
 
     //Incoming
     Route::resource('incomings', IncomingController::class, ['except' => ['store', 'update', 'destroy']]);
@@ -55,6 +56,9 @@ Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => ['auth', 's
 
     //Category
     Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
+
+    //SenderDestination
+    Route::resource('sender-destinations', SenderDestinationController::class, ['except' => ['store', 'update', 'destroy', 'show']]);
 });
 
 Route::group(['prefix' => 'coordinator', 'as' => 'coordinator.', 'middleware' => ['auth', 'coordinator']], function () {
