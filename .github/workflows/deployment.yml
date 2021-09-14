@@ -88,13 +88,13 @@ jobs:
             tar -xvJf ${{ matrix.server.path}}/artifacts/${GITHUB_SHA}.tar.gz -C ${{matrix.server.path}}/releases/${GITHUB_SHA}
             chmod -R 755 ${{matrix.server.path}}/releases/${GITHUB_SHA}
             chown -R www-data:www-data ${{matrix.server.path}}/releases
-            chown -R www-data:www-data ${{matrix.server.path}}/releases/${GITHUB_SHA}
-
+            
             rm -rf ${{matrix.server.path}}/releases/${GITHUB_SHA}/storage
             mkdir -p ${{matrix.server.path}}/storage/{app,framework,logs,public}
             mkdir -p ${{matrix.server.path}}/storage/framework/{cache,sessions,testing,views}
             mkdir -p ${{matrix.server.path}}/storage/framework/cache/data
             chmod -R 0755 ${{matrix.server.path}}/storage
+            chown -R www-data:www-data ${{matrix.server.path}}/storage
     
   run-before-hook:
     name: "${{matrix.server.name}}: before hook"
