@@ -71,7 +71,7 @@ jobs:
           password: ${{ matrix.server.password }}
           port: ${{ matrix.server.port }}
           source: ${{ github.sha }}.tar.gz
-          target: ${{ matrix.server.artifactbasepath}}/artifacts
+          target: ${{ matrix.server.artifactbasepath}}/subjectfile-artifacts
 
       - name: extract artifact and make directory
         uses: appleboy/ssh-action@master
@@ -85,7 +85,7 @@ jobs:
           envs: GITHUB_SHA
           script: |
             mkdir -p "${{matrix.server.path}}/releases/${GITHUB_SHA}"
-            tar -xvJf ${{ matrix.server.artifactbasepath}}/artifacts/${GITHUB_SHA}.tar.gz -C ${{matrix.server.path}}/releases/${GITHUB_SHA}
+            tar -xvJf ${{ matrix.server.artifactbasepath}}/subjectfile-artifacts/${GITHUB_SHA}.tar.gz -C ${{matrix.server.path}}/releases/${GITHUB_SHA}
             chmod -R 755 ${{matrix.server.path}}/releases/${GITHUB_SHA}
             chown -R www-data:www-data ${{matrix.server.path}}/releases
             
@@ -193,7 +193,7 @@ jobs:
         uses: appleboy/ssh-action@master
         env:          
           RELEASE_PATH: ${{matrix.server.path}}/releases
-          ARTIFACTS_PATH: ${{ matrix.server.artifactbasepath}}/artifacts          
+          ARTIFACTS_PATH: ${{ matrix.server.artifactbasepath}}/subjectfile-artifacts          
         with:
           host: ${{ matrix.server.ip }}
           username: ${{ matrix.server.username }}
