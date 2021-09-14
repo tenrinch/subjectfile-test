@@ -7,6 +7,7 @@
         "port": "22",
         "beforehook": "echo ${GITHUB_SHA}",
         "afterhook": "echo ${GITHUB_SHA}",
-        "path": "/var/www/html/subjectfile_test"
+        "path": "/var/www/html/subjectfile_test",
+        "artifactbasepath": "/home/tcrc"
     }
 ]
