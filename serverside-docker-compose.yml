@@ -1,0 +1,60 @@
+version: "3.8"
+services:
+  app:
+    container_name: app
+    image: index.docker.io/grinchub/e-filing-test:latest
+    expose:
+      - 9000
+    depends_on:
+      - mysql
+    networks:
+      - app_network
+    volumes:
+      # ./subjectfile/public:/
+      - ./public:/var/www/html/subject/public
+      - ./.env:/var/www/html/subject/.env
+  nginx:
+    container_name: nginx
+    image: index.docker.io/grinchub/e-filing-test:nginx-fpm-docker
+    depends_on:
+      - app
+    volumes:
+      # ./subjectfile/public:/
+      - ./public:/var/www/html/subject/public
+    ports:
+      - 8000:80
+    environment:
+        NGINX_FPM_HOST: app
+        NGINX_ROOT: /var/www/html/subjectfile/public
+    networks:
+      - app_network
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+      - app_network
+
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/grinch/.docker/config.json:/config.json
+    command: --debug --interval 3
+
+
+networks:
+  app_network:
+    driver: bridge

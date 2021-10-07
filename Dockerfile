@@ -54,9 +54,8 @@ COPY . /var/www/html/subjectfile
 RUN composer update
 RUN composer install --no-dev --no-interaction --prefer-dist
 
-# # setup npm
+# # setup npm? is this step necessary
 # RUN npm install -g npm@latest
-
 # RUN npm install
 
 # # include your other npm run scripts e.g npm rebuild node-sass
@@ -67,12 +66,11 @@ RUN composer install --no-dev --no-interaction --prefer-dist
 # Change owner and permission of the working directory
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .
-RUN chmod -R 755 ./public
-RUN chmod -R 755 ./storage
-RUN chmod -R 755 ./bootstrap/cache
-RUN chown -R www-data.www-data ./bootstrap/cache
-RUN chmod -R o+w ./storage
-
+RUN chmod -R 777 public
+RUN chmod -R 777 storage
+RUN chmod -R 755 bootstrap/cache
+RUN chown -R www-data.www-data bootstrap/cache
+RUN chmod -R o+w storage
 
 # start php-fpm
 CMD ["php-fpm"]
