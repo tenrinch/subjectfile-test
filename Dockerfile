@@ -63,7 +63,7 @@ RUN composer install --no-dev --no-interaction --prefer-dist
 # # run your default build command here mine is npm run prod
 # RUN npm run prod
 
-# Change owner and permission of the working directory
+# Change owner and permission of the working directory, public and storage 
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .
 RUN chmod -R 777 public
