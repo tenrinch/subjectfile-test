@@ -25,7 +25,7 @@ RUN apt-get update \
     pcntl \
     zip \
     && rm -rf /var/lib/apt/lists/*;
-# COPY docker/php/laravel.ini /usr/local/etc/php/conf.d/laravel.ini
+COPY docker/php/laravel.ini /usr/local/etc/php/conf.d/laravel.ini
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN composer update
