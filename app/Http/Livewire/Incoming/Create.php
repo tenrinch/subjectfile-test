@@ -14,35 +14,35 @@ use Illuminate\Support\Str;
 use App\Traits\FileUpload;
 
 class Create extends Component
-{   
+{
     use FileUpload;
 
     public Incoming $incoming;
-    
-    public $year,$parent;
+
+    public $year, $parent;
     public $files;
     public $sender = [];
     public $listCategories = [];
     public $listSenders = [];
     public SenderDestination $selected_sender;
 
-    protected $listeners = ['parent_selected' => 'setCategory','sender_destination_selected'=>'setSender'];
+    protected $listeners = ['parent_selected' => 'setCategory', 'sender_destination_selected' => 'setSender'];
 
     public function mount(Incoming $incoming)
-    {   
+    {
         $this->incoming = $incoming;
         $this->listCategories = Category::get()->whereNull('subcategory_of');
         $this->listSenders = SenderDestination::get()
-        ->where('fixed',1)
-        ->whereNull('subsenderdestination_of');
-        
+            ->where('fixed', 1)
+            ->whereNull('subsenderdestination_of');
+
         $this->year = date('Y');
         $this->incoming->incoming_no = Incoming::select('incoming_no')
-            ->where('year',$this->year)->max('incoming_no') + 1;
+            ->where('year', $this->year)->max('incoming_no') + 1;
     }
 
     public function render()
-    {  
+    {
         return view('livewire.incoming.create');
     }
 
@@ -54,13 +54,12 @@ class Create extends Component
     public function updatedYear($value)
     {
         $this->incoming->incoming_no = Incoming::select('incoming_no')
-            ->where('year',$this->year)->max('incoming_no') + 1;
+            ->where('year', $this->year)->max('incoming_no') + 1;
     }
 
     public function updatedParent($value)
-    {   
-        if(!empty($value))
-        {
+    {
+        if (!empty($value)) {
             $this->selected_sender = SenderDestination::find($value);
             $this->incoming->sender_id = $value;
         }
@@ -72,20 +71,18 @@ class Create extends Component
     }
 
     public function submit()
-    {   
+    {
         $this->validate();
-        if($this->parent === '0')
-        {
+        if ($this->parent === '0') {
             $sender = SenderDestination::create($this->sender);
-            $this->incoming->sender_id = $sender->id; 
+            $this->incoming->sender_id = $sender->id;
         }
         $this->incoming->year = $this->year;
         $this->incoming->save();
-    
+
         //If file is uploaded
-        if($this->files)
-        {   
-            $this->uploads($this->files,$this->incoming,'incoming');
+        if ($this->files) {
+            $this->uploads($this->files, $this->incoming, 'incoming');
         }
 
         session()->flash('success', 'Incoming file added!');
