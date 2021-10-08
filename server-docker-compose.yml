@@ -9,6 +9,7 @@ services:
       - mysql
     networks:
       - app_network
+      
   nginx:
     container_name: nginx
     image: index.docker.io/grinchub/e-filing-test:nginx-fpm-docker
@@ -23,6 +24,7 @@ services:
       NGINX_ROOT: /usr/src/app/public
     networks:
       - app_network
+
   mysql:
     container_name: mysql
     image: mysql:8.0.20
