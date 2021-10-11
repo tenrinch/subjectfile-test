@@ -25,6 +25,8 @@ RUN apt-get update \
     pcntl \
     zip \
     && rm -rf /var/lib/apt/lists/*;
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
 COPY docker/php/laravel.ini /usr/local/etc/php/conf.d/laravel.ini
 WORKDIR /usr/src/app
 COPY . /usr/src/app
