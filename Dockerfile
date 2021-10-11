@@ -33,4 +33,5 @@ COPY . /usr/src/app
 RUN composer update
 RUN composer install
 RUN chown -R www-data:www-data .
+RUN chown -R www-data:www-data ./public
 RUN chmod -R 755 ./

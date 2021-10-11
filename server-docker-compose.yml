@@ -9,12 +9,22 @@ services:
       - mysql
     networks:
       - app_network
-      
+    volumes:
+      - ./public:/usr/src/app/public
+
+  php-cli:
+    container_name: php-cli
+    build:
+      context: ./php-cli
+      tty: true
+    volumes:
+      - ./public:/usr/src/app/public 
+    networks:
+      - app_network
+
   nginx:
     container_name: nginx
     image: index.docker.io/grinchub/e-filing-test:nginx-fpm-docker
-    volumes:
-    - ./public:/usr/src/app/public
     ports:
       - 8000:80
     depends_on:
@@ -22,6 +32,8 @@ services:
     environment:
       NGINX_FPM_HOST: app
       NGINX_ROOT: /usr/src/app/public
+    volumes:
+      - ./public:/usr/src/app/public
     networks:
       - app_network
 
@@ -29,8 +41,6 @@ services:
     container_name: mysql
     image: mysql:8.0.20
     restart: always
-    volumes:
-      - ./storage/db-data:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
@@ -39,6 +49,8 @@ services:
       MYSQL_USER: laravel
       MYSQL_PASSWORD: password
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
     networks:
       - app_network
     
