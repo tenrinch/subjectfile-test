@@ -34,4 +34,3 @@ RUN composer update
 RUN composer install
 RUN chmod -R 755 ./
 RUN chown -R www-data:www-data .
-RUN chown -R www-data:www-data ./public
