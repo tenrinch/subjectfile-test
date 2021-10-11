@@ -29,9 +29,9 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 COPY docker/php/laravel.ini /usr/local/etc/php/conf.d/laravel.ini
 WORKDIR /usr/src/app
+RUN chown -R www-data:www-data .
+RUN chown -R www-data:www-data ./public
+RUN chmod -R 755 ./
 COPY . /usr/src/app
 RUN composer update
 RUN composer install
-RUN chown -R www-data:www-data .
-# RUN chown -R www-data:www-data ./public
-RUN chmod -R 755 ./
