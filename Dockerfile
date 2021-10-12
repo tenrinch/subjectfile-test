@@ -33,11 +33,11 @@ WORKDIR /usr/src/app
 RUN composer update
 RUN composer install
 RUN chmod -R 755 ./
-# RUN chown -R www-data:www-data .
+RUN chown -R www-data:www-data .
 # test this permission 
 # RUN chown -R www-data:www-data ./public
-RUN chown -R $USER:www-data .
-RUN find . -type f -exec chmod 664 {} \;   
-RUN find . -type d -exec chmod 775 {} \;
-RUN chgrp -R www-data storage bootstrap/cache
-RUN chmod -R ug+rwx storage bootstrap/cache
+# RUN chown -R $USER:www-data .
+# RUN find . -type f -exec chmod 664 {} \;   
+# RUN find . -type d -exec chmod 775 {} \;
+# RUN chgrp -R www-data storage bootstrap/cache
+# RUN chmod -R ug+rwx storage bootstrap/cache
