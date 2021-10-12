@@ -34,4 +34,5 @@ RUN composer update
 RUN composer install
 RUN chmod -R 755 ./
 RUN chown -R www-data:www-data .
+#test this permission 
 RUN chown -R www-data:www-data ./public
