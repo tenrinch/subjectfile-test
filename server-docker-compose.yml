@@ -11,16 +11,10 @@ services:
       - app_network
     volumes:
       - ./public:/usr/src/app/public
+    
 
-  php-cli:
-    container_name: php-cli
-    build:
-      context: ./php-cli
-      tty: true
-    volumes:
-      - ./public:/usr/src/app/public 
-    networks:
-      - app_network
+  
+    
 
   nginx:
     container_name: nginx
@@ -53,6 +47,7 @@ services:
       - ./storage/db-data:/var/lib/mysql
     networks:
       - app_network
+    
     
   watchtower:
     container_name: watchtower
