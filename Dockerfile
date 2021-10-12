@@ -41,3 +41,4 @@ RUN chown -R www-data:www-data .
 # RUN find . -type d -exec chmod 775 {} \;
 # RUN chgrp -R www-data storage bootstrap/cache
 # RUN chmod -R ug+rwx storage bootstrap/cache
+CMD [ "php-fpm" ]

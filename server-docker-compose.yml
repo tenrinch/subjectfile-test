@@ -10,11 +10,7 @@ services:
     networks:
       - app_network
     volumes:
-      - ./public:/usr/src/app/public
-    
-
-  
-    
+      - "public:/usr/src/app/public" 
 
   nginx:
     container_name: nginx
@@ -27,7 +23,7 @@ services:
       NGINX_FPM_HOST: app
       NGINX_ROOT: /usr/src/app/public
     volumes:
-      - ./public:/usr/src/app/public
+      - "public:/usr/src/app/public"
     networks:
       - app_network
 
@@ -44,7 +40,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
-      - ./storage/db-data:/var/lib/mysql
+      - "./storage/db-data:/var/lib/mysql"
     networks:
       - app_network
     
@@ -53,10 +49,19 @@ services:
     container_name: watchtower
     image: containrrr/watchtower
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/grinch/.docker/config.json:/config.json
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/home/grinch/.docker/config.json:/config.json"
     command: --debug --interval 3
     
 networks:
   app_network:
     driver: bridge
+
+volumes:
+  public:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/user/path'
+
